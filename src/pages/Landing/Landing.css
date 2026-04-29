@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.section-landing {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.opening-sentence {
+    color: #FFFF;
+    font-size: 128px;
+    font-weight: 500;
+    font-family: "Fraunces", serif;
+}
+
+.opening-middle-sentence {
+    font-size: 128px;
+    font-weight: 500;
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    color:#D96E3A;
+}
+
+.second-sentence {
+    color: #FFFF;
+    font-weight: 500;
+    margin-top: 10px;
+    font-size: 24px;
+    font-family: "Fraunces", serif;
+}
+
+.section-sentences {
+    padding: 5%;
+}
+
+
+/* From Uiverse.io by ryota1231 // https://uiverse.io/ryota1231/fast-mouse-17*/ 
+.animated-button {
+  margin-top: 10%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 36px;
+  border-color: transparent;
+  font-size: 20px;
+  background-color: #D96E3A;
+  border-radius: 100px;
+  font-weight: 600;
+  color: #FFFF;
+  font-family: "Inter", sans-serif;
+  box-shadow: 0 0 0 1px #D96E3A;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button svg {
+  position: absolute;
+  width: 24px;
+  fill: #ffff;
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .arr-1 {
+  right: 16px;
+}
+
+.animated-button .arr-2 {
+  left: -25%;
+}
+
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: #D96E3A;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-12px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+  color: #ffff;
+  border-radius: 12px;
+}
+
+.animated-button:hover .arr-1 {
+  right: -25%;
+}
+
+.animated-button:hover .arr-2 {
+  left: 16px;
+}
+
+.animated-button:hover .text {
+  transform: translateX(12px);
+}
+
+.animated-button:hover svg {
+  fill: #ffff;
+}
+
+.animated-button:active {
+  scale: 0.95;
+  box-shadow: 0 0 0 4px #ffffff;
+}
+
+.animated-button:hover .circle {
+  width: 220px;
+  height: 220px;
+  opacity: 1;
+}

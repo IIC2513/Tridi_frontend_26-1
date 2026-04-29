@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.section-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1%;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-color: #333333;
+    border-width: 1px;
+}
+
+/* From Uiverse.io by WhiteNervosa // https://uiverse.io/WhiteNervosa/popular-ladybug-27*/ 
+.button-info {
+  font-size: 16px;
+  color: #e1e1e1;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  background: none;
+  text-transform: uppercase;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: color;
+  padding-inline: 2%;
+}
+
+.button-info:focus,
+.button-info:hover {
+  color: #fff;
+}
+
+.button-info:focus:after,
+.button-info:hover:after {
+  width: 100%;
+  left: 0%;
+}
+
+.button-info:after {
+  content: "";
+  pointer-events: none;
+  bottom: -2px;
+  left: 50%;
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background-color: #fff;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: width, left;
+}
