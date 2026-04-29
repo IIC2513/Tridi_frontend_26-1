@@ -21,33 +21,27 @@ Al comunicarse entre miembros debe prevalecer el respeto sin importar el context
 
 Se espera que se haga através de los respectivos canales, y si la información a entregar es referente al proyecto se espera que todos los miembros la reciban.
 
-> [!NOTE]
-> Esto debe ser completado por cada equipo
-
 ### Canal de comunicación principal
 whatsapp, telegram, discord, correo electrónico.
 
-> ¿Cómo se comunicarán entre ustedes? WhatsApp / Telegram / Teams / Slack / Discord / Correo
-
 ### Reuniones de equipo 
-> Definir frecuencia (X veces a la semana o por entrega) y medio (Meet / Teams / Presencial). Deben definirlo para reuniones entre ustedes y para reuniones con el ayudante.
-
 Las reuniones serán cuando se estimen convenientes y serán avisadas con al menos 3 días de anticipación. Las juntas con el product owner, serán en función de la disponibilidad de este.
 
 Se preferirá la modalidad presencial si son antes de las 14:50, luego de eso netamente online a menos que todos los miembros puedan.
 
 ### Cuándo trabajar en el proyecto
-> Conversar cómo y cuándo prefieren trabajar. ¿Solo días hábiles? ¿Al comienzo de cada entrega, toda la entrega o solo al final de la entrega? Pónganse en todas las situaciones y recuerden experiencias en cursos anteriores.  
-
 La modalidad de trabajo será asincrona con posibles juntas en caso de ser necesario, además habrá momentos para programar en conjunto, todo esto se comunicará en su debido tiempo. Ya que es claro que debemos repartir las features, y juntarnos a organizar y explicar ciertas implementaciones.
-
 
 
 ## 4. ¿Qué Haremos Cuando...?
 
-> [!IMPORTANT]
-> Para cada una de estas situaciones, deberán definir un paso a paso de las cosas que deberían hacer si la situación particular se presenta. Piénsenlo como una *checklist*, esto es un plan a seguir en caso de emergencia. Es importante que coloquen explícitamente quién realiza la acción (vean el ejemplo). Recuerden situaciones y experiencias similares y qué les hubiera gustado que ocurriera. La primera situación queda de ejemplo, pero pueden modificarla.
-
+Plan general que aplica a todos los casos:
+- Un miembro de el equipo detecta algo "raro".
+- Este lo informa por el Telegram, es decir el canal en que este el ayudante, 
+y además se lo habla a los integrantes por interno.
+- Intentar razonar con el miembro.
+- En caso de no poder llegar a un acuerdo en algo vital para el proyecto se le pedirá ayuda al equipo docente.
+- Siempre será conversable el tema qué cosa y cuánto hace cada uno.
 ### 4.1 Enfermedad o emergencia de salud
 > En caso de que uno de los miembros se enferme o no pueda trabajar en el proyecto del curso por razones de salud.
 
@@ -74,12 +68,15 @@ En caso de haberlas de forma imprevisata, se puede trabajar de forma local, y si
 ### 4.4 Emergencia personal no planificada
 > Es difícil resumir todas las situaciones que podrían ocurrir a nivel personal y que impiden que podamos continuar con nuestras responsabilidades académicas: hay cosas más importantes que una evaluación en la universidad. Traten de pensar en situaciones generales: ¿qué me gustaría que ocurriera si realmente no puedo contribuir a mi equipo por alguna razón fuera de mi alcance? (Podría servirles colocar ejemplo)
 
-1. Si **YO** no puedo trabajar porque me pasó algo...
+1. Si **YO** no puedo trabajar porque me pasó algo, informaré al equipo en caso de poder hacerlo.
+2. Espero que el equipo comprenda mi situación e informe al ayudante.
+
+En caso de fallecimiento de algún familar se espera que el integrante no trabaje, o haga menos cosas, y es claro que posiblemente no quiera hablar del tema. En ese caso evitaremos molestarle, y le bajaremos la carga académica.
 
 ### 4.5 Retraso en entrega / Inclumplimiento de plazo
 > Sabemos que tienen la capacidad de desarrollar el proyecto de buena manera y obtener la mayor nota posible (sería injusto darles un proyecto que no esperamos que puedan completar), pero si por algún motivo no pudieran entregar todo a tiempo, ¿qué planean hacer?
 
-1. Si **como equipo** no tenemos el entregable listo para el día de la entrega, le avisaremos a nuestro product owner, y ver si es posible entregarlo fuera de plazo. 
+1. Si **como equipo** no tenemos el entregable listo para el día de la entrega, le avisaremos a nuestro product owner, y veremos si es posible entregarlo fuera de plazo. 
 
 En caso de que no, aún así trabajaremos y entregaremos en la siguiente etapa. 
 
@@ -105,9 +102,15 @@ En caso de que no, aún así trabajaremos y entregaremos en la siguiente etapa.
 
 1. Si **YO** encuentro código que aparentemente fue desarrollado por una IA pero no se referenció, lo hablaré con quien escribió ese código, si en efecto fue generado por IA, le preguntaré qué modelo uso y cuál fue el promp, en caso de no recordarlos, solamente diremos que fue hecho por IA, y hasta que punto.
 
+2. Al citar codigo se hará al final del README, diciendo que modelo se uso y para qué, no esperamos decir que línea exacta fue generada, pero sí cuanto del código, es decir, o fue toda la función o solo la parte que hace X.
+
+3. Si se utiliza una herramienta de CLI como copilot cli, se esperará que el integrante pueda exportar la conversación y guardarla en caso de.
+
+4. Siempre se debe infomar en qué se uso IA.
+
 De todas formas si fue generado por IA el integrante deberá entender lo que hace.
 
-## 4. Firma de cada integrante del grupo
+## 5. Firma de cada integrante del grupo
 - Francisco Cornejo Quiroga
 - Ignacio Gutiérrez Fuenzalida
 - Gonzalo Rivas Valenzuela
