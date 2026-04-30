@@ -6,7 +6,15 @@ import "./Navbar.css";
 
 export default function Navbar() {
 
-  const navigate = useNavigate();
+  const scrollLeft  = () => {
+    const scroll = document.querySelector(".navbarNav");
+    scroll.scrollLeft -= 200;
+  };
+
+  const scrollRight  = () => {
+    const scroll = document.querySelector(".navbarNav");
+    scroll.scrollLeft += 200;
+  };
 
   return (
     <header>
@@ -17,6 +25,7 @@ export default function Navbar() {
                 </Link>
             </nav>
             <nav className="navbarList">
+                <button className="buttonArrow" onClick={scrollLeft}>🡸</button>
                 <div className="navbarNav">
                     <ul className="navList">
                         <li>
@@ -56,6 +65,7 @@ export default function Navbar() {
                         </li>
                     </ul>
                 </div>
+                <button className="buttonArrow" onClick={scrollRight}>🡺</button>
             </nav>
             <nav className="navbar">
                 <button className="buttonMerc type1">

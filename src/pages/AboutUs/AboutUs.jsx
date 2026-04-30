@@ -9,7 +9,7 @@ import "./AboutUs.css";
 
 export default function AboutUs() {
   
-  const navigate = useNavigate();
+  window.scrollTo(0, 0);
 
   return (
     <div>
@@ -33,7 +33,7 @@ export default function AboutUs() {
             <div className="cards-container">
                 <div className="card-separator">
                     <CardAboutUs name={"Francisco Cornejo"}
-                                description={"Computer science student interested in videogames and web development."}
+                                description={"Computer Science student interested in videogames and web development."}
                                 github={"https://github.com/VerditoRaccoon"}
                                 telegram={"https://t.me/VerditoRaccoon"}
                                 image={"FranciscoIcon.jpeg"}>

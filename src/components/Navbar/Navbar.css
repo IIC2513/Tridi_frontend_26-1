@@ -55,18 +55,32 @@ header {
 }
 
 .navbarNav {
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    align-self: center;
+
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    
+    li {
+        scroll-snap-align: center;
+    }
 }
 
 .navList {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
     display: flex;
     list-style: none;
+}
+
+.buttonArrow {
+    width: auto;
+    height: auto;
+    font-size: 25px;
+    border: none;
+    background-color: black;
+    color: white;
+}
+
+.buttonArrow:hover {
+    color: #D96E3A;
 }
 
 /* From Uiverse.io by Cornerstone-04 // https://uiverse.io/Cornerstone-04/bitter-impala-54 */ 
@@ -189,6 +203,12 @@ header {
   transform: scale(100) translateX(2px);
 }
 
+@media only screen and (min-width: 844px) {
+    .buttonArrow {
+        display: none;
+    }
+}
+
 @media only screen and (min-width: 1110px) {
     .navbar {
         justify-content: space-between;
@@ -200,5 +220,18 @@ header {
 
     .navList {
     flex-direction: row;
+    }
+
+    .navbarNav {
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        align-self: center;
+    }
+
+    .navList {
+        flex-direction: row;
+        display: flex;
+        list-style: none;
     }
 }

@@ -1,7 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+.landing-page {
+    display: flex;
+    flex-direction: column-reverse;
+    
+    img {
+        opacity: 0.5;
+    }
+}
+
 .section-landing {
-    height: 80vh;
+    height: 60vh;
     display: flex;
     align-items: center;
 }
@@ -11,6 +20,7 @@
     font-size: 64px;
     font-weight: 500;
     font-family: "Fraunces", serif;
+    z-index: 0;
 }
 
 .opening-middle-sentence {
@@ -20,6 +30,7 @@
     font-family: "Fraunces", serif;
     font-style: italic;
     color:#D96E3A;
+    z-index: 0;
 }
 
 .second-sentence {
@@ -28,6 +39,7 @@
     margin-top: 10px;
     font-size: 16px;
     font-family: "Fraunces", serif;
+    z-index: 0;
 }
 
 .section-sentences {
@@ -54,6 +66,7 @@
   cursor: pointer;
   overflow: hidden;
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  margin-bottom: 20%;
 }
 
 .animated-button svg {
@@ -174,21 +187,41 @@
 }
 
 @media only screen and (min-width: 1110px) {
+
+    .section-landing {
+        height: 80vh;
+    }
+
     .opening-sentence {
         font-size: 78px;
+        z-index: 1;
     }
 
     .opening-middle-sentence {
         font-size: 78px;
+        z-index: 1;
     }
 
     .second-sentence {
         font-size: 16px;
         max-width: 360px;
+        z-index: 1;
     }
 
     .animated-button {
         font-size: 20px;
+        z-index: 1;
+        margin-bottom: 0;
+    }
+
+    .landing-page {
+        img {
+            height: auto;
+            width: auto;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
     }
 }
 

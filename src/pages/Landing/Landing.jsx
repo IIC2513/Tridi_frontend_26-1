@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import "./Landing.css";
 
 export default function Landing() {
-  
+
+  window.scrollTo(0, 0);
+
   const navigate = useNavigate();
 
   function EnterButton() {
@@ -36,25 +38,28 @@ export default function Landing() {
         </Navbar>
         <Footer>
         </Footer>
-        <section className="section-landing">
-            <div className="section-sentences">
-                <h1 className="opening-sentence">
-                    Find
-                </h1>
-                <h1 className="opening-middle-sentence">
-                    sculpts
-                </h1>
-                <h1 className="opening-sentence">
-                    for you.
-                </h1>
-                <p className="second-sentence">
-                   Browse our catalogue of high quality sculpts, and
-                   find one that piques your interest
-                </p>
-                <EnterButton>
-                </EnterButton>
-            </div>
-        </section>
+        <div className="landing-page">
+            <section className="section-landing">
+                <div className="section-sentences">
+                    <h1 className="opening-sentence">
+                        Find
+                    </h1>
+                    <h1 className="opening-middle-sentence">
+                        sculpts
+                    </h1>
+                    <h1 className="opening-sentence">
+                        for you.
+                    </h1>
+                    <p className="second-sentence">
+                    Browse our catalogue of high quality sculpts, and
+                    find one that piques your interest
+                    </p>
+                    <EnterButton>
+                    </EnterButton>
+                </div>
+            </section>
+            <img src="model.svg"></img>
+        </div>
     </div>
   );
 }
