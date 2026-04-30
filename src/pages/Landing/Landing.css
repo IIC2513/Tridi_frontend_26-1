@@ -8,14 +8,15 @@
 
 .opening-sentence {
     color: #FFFF;
-    font-size: 128px;
+    font-size: 64px;
     font-weight: 500;
     font-family: "Fraunces", serif;
 }
 
 .opening-middle-sentence {
-    font-size: 128px;
+    font-size: 64px;
     font-weight: 500;
+    max-width: 180px;
     font-family: "Fraunces", serif;
     font-style: italic;
     color:#D96E3A;
@@ -25,7 +26,7 @@
     color: #FFFF;
     font-weight: 500;
     margin-top: 10px;
-    font-size: 24px;
+    font-size: 16px;
     font-family: "Fraunces", serif;
 }
 
@@ -43,7 +44,7 @@
   gap: 4px;
   padding: 16px 36px;
   border-color: transparent;
-  font-size: 20px;
+  font-size: 16px;
   background-color: #D96E3A;
   border-radius: 100px;
   font-weight: 600;
@@ -122,4 +123,90 @@
   width: 220px;
   height: 220px;
   opacity: 1;
+}
+
+/* From Uiverse.io by WhiteNervosa // https://uiverse.io/WhiteNervosa/popular-ladybug-27*/ 
+.button-info {
+  font-size: 16px;
+  color: #e1e1e1;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  background: none;
+  text-transform: uppercase;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: color;
+  padding-inline: 2%;
+}
+
+.button-info:focus,
+.button-info:hover {
+  color: #fff;
+}
+
+.button-info:focus:after,
+.button-info:hover:after {
+  width: 100%;
+  left: 0%;
+}
+
+.button-info:after {
+  content: "";
+  pointer-events: none;
+  bottom: -2px;
+  left: 50%;
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background-color: #fff;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: width, left;
+}
+
+.section-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (min-width: 1110px) {
+    .opening-sentence {
+        font-size: 78px;
+    }
+
+    .opening-middle-sentence {
+        font-size: 78px;
+    }
+
+    .second-sentence {
+        font-size: 16px;
+        max-width: 360px;
+    }
+
+    .animated-button {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .opening-sentence {
+        font-size: 128px;
+    }
+
+    .opening-middle-sentence {
+        font-size: 128px;
+    }
+
+    .second-sentence {
+        font-size: 24px;
+        max-width: 520px;
+    }
+
+    .animated-button {
+        font-size: 20px;
+    }
 }

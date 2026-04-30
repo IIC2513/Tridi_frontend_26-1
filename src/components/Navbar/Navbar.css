@@ -8,7 +8,9 @@
 
 header {
     position: sticky;
-    top: 0;
+    top: 0px;
+    background-color: black;
+    z-index: 10;
 }
 
 .containerNavbar {
@@ -17,12 +19,13 @@ header {
     width: 100%;
     max-width: 1940px;
     padding: 0 20px;
-    margin-top: 10px;
+    flex-direction: column; /* PARA CELULARES*/
 }
 
 .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    /*justify-content: space-between;*/
     align-items: center;
     height: 100%;
     margin: 10px;
@@ -59,7 +62,9 @@ header {
 }
 
 .navList {
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     display: flex;
     list-style: none;
 }
@@ -182,4 +187,18 @@ header {
 .type1:hover::after {
   visibility: visible;
   transform: scale(100) translateX(2px);
+}
+
+@media only screen and (min-width: 1110px) {
+    .navbar {
+        justify-content: space-between;
+    }
+
+    .containerNavbar {
+    flex-direction: row;
+    }
+
+    .navList {
+    flex-direction: row;
+    }
 }

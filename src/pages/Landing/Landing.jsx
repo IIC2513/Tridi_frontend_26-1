@@ -34,6 +34,8 @@ export default function Landing() {
     <div>
         <Navbar>
         </Navbar>
+        <Footer>
+        </Footer>
         <section className="section-landing">
             <div className="section-sentences">
                 <h1 className="opening-sentence">
@@ -46,15 +48,13 @@ export default function Landing() {
                     for you.
                 </h1>
                 <p className="second-sentence">
-                   Browse our catalogue of high quality sculpts, and <br></br>
-                   find one that piques your interest <br></br>
+                   Browse our catalogue of high quality sculpts, and
+                   find one that piques your interest
                 </p>
                 <EnterButton>
                 </EnterButton>
             </div>
         </section>
-        <Footer>
-        </Footer>
     </div>
   );
 }

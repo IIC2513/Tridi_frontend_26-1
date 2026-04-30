@@ -1,6 +1,120 @@
-.cards-container {
+.section-aboutus {
     min-height: 80vh;
     display: flex;
     align-items: center;
+    flex-direction: column;
+}
+
+.section-information {
+    padding: 5%;
+}
+
+.title-aboutus {
+    color: #FFFF;
+    font-size: 64px;
+    font-weight: 500;
+    font-family: "Fraunces", serif;
+    font-style: italic;
+}
+
+.description-team {
+    color: #FFFF;
+    max-width: 460px;
+    font-weight: 250;
+    margin-top: 10px;
+    font-size: 12px;
+    font-family: "Fraunces", serif;
+}
+
+.cards-container {
+    display: flex;
+    align-items: center;
     justify-content: center;
+    flex-direction: column;
+    margin-bottom: 10%;
+}
+
+.card-separator {
+    margin: 5%;
+}
+
+@media only screen and (min-width: 1180px) {
+
+    .section-aboutus {
+        flex-direction: row;
+    }
+
+    .title-aboutus {
+        font-size: 32px;
+    }
+
+    .description-team {
+        max-width: 260px;
+        font-weight: 200;
+        font-size: 16px;
+    }
+
+    .cards-container {
+        min-height: 80vh;
+        flex-direction: row;
+        margin-bottom: 0%;
+    }
+
+    .card-separator {
+        margin: 1%;
+    }
+}
+
+@media only screen and (min-width: 1300px) {
+
+    .section-aboutus {
+        flex-direction: row;
+    }
+
+    .title-aboutus {
+        font-size: 48px;
+    }
+
+    .description-team {
+        max-width: 300px;
+        font-weight: 200;
+        font-size: 16px;
+    }
+
+    .cards-container {
+        min-height: 80vh;
+        flex-direction: row;
+        margin-bottom: 0%;
+    }
+
+    .card-separator {
+        margin: 1%;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+
+    .section-aboutus {
+        flex-direction: row;
+    }
+
+    .title-aboutus {
+        font-size: 128px;
+    }
+
+    .description-team {
+        font-size: 24px;
+        font-weight: 200;
+        max-width: 560px;
+    }
+
+    .cards-container {
+        min-height: 80vh;
+        flex-direction: row;
+        margin-bottom: 0%;
+    }
+
+    .card-separator {
+        margin: 1%;
+    }
 }

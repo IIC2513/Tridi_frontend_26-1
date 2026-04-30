@@ -4,7 +4,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
+    position: fixed;
+    z-index: 10;
     bottom: 0;
     width: 100%;
     padding: 1%;
@@ -12,6 +13,7 @@
     border-bottom-style: solid;
     border-color: #333333;
     border-width: 1px;
+    background-color: black;
 }
 
 /* From Uiverse.io by WhiteNervosa // https://uiverse.io/WhiteNervosa/popular-ladybug-27*/ 

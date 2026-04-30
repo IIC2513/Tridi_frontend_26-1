@@ -25,21 +25,29 @@ export default function Navbar() {
                                     Catalogue
                                 </span>
                             </button>
+                        </li>
+                        <li>
                             <button className="buttonNav">
                                 <span className="box">
                                     Artists
                                 </span>
                             </button>
+                        </li>
+                        <li>
                             <button className="buttonNav">
                                 <span className="box">
                                     For You
                                 </span>
                             </button>
+                        </li>
+                        <li>
                             <button className="buttonNav">
                                 <span className="box">
                                     Account
                                 </span>
                             </button>
+                        </li>
+                        <li>
                             <button className="buttonNav">
                                 <span className="box">
                                     Top
