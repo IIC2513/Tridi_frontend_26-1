@@ -25,7 +25,7 @@ export default function Navbar() {
                 </Link>
             </nav>
             <nav className="navbarList">
-                <button className="buttonArrow" onClick={scrollLeft}>🡸</button>
+                <button className="buttonArrow" onClick={scrollLeft}><img src="arrow-left.svg"/></button>
                 <div className="navbarNav">
                     <ul className="navList">
                         <li>
@@ -65,7 +65,7 @@ export default function Navbar() {
                         </li>
                     </ul>
                 </div>
-                <button className="buttonArrow" onClick={scrollRight}>🡺</button>
+                <button className="buttonArrow" onClick={scrollRight}><img src="arrow-right.svg"/></button>
             </nav>
             <nav className="navbar">
                 <button className="buttonMerc type1">
