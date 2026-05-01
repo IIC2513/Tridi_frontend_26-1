@@ -11,28 +11,28 @@ Aquí se encuentran las fotos del **Mockup** y del **Documento de Diseño** (al 
 Este último será actualizado en cada entrega utilizando *screenshots* de la página.
 
 ### Colores
-![alt text](design/image.png)
+![alt text](Docs/design/image.png)
 
 ### Botones/Iconos
-![alt text](design/image-1.png)
+![alt text](Docs/design/image-1.png)
 
 ### Producto
-![alt text](design/image-2.png)
+![alt text](Docs/design/image-2.png)
 
 ### Mensajes 
-![alt text](design/image-3.png)
+![alt text](Docs/design/image-3.png)
 
 ### Fuentes
-![alt text](design/image-4.png)
+![alt text](Docs/design/image-4.png)
 
 ### Logo
-![alt text](design/image-5.png)
+![alt text](Docs/design/image-5.png)
 
 ### Captura Actual - *Landing Page*
-![alt text](design/screenshots/LandingPage-E0.png)
+![alt text](Docs/design/screenshots/LandingPage-E0.png)
 
 ### Captura Actual - *About-Us Page*
-![alt text](design/screenshots/AboutUsPage-E0.png)
+![alt text](Docs/design/screenshots/AboutUsPage-E0.png)
 
 ## Diagrama E/R
 A continuación tenemos lo que es actualmente nuestro **Diagrama Entidad-Relación**. 
@@ -42,7 +42,7 @@ Nótese las relaciones N:N que se convertirán a tablas en nuestra base de datos
 *Admin* y *Moderator* heredarán de *User*. El atributo **seller** es un *bool* que marca si el usuario tiene autorización para vender o no.
 
 
-![Diagram](design/tridi.diagrama.svg)
+![Diagram](Docs/design/tridi.diagrama.svg)
 
 ## Bibliografía - Uso de Código
 
