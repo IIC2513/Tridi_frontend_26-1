@@ -45,7 +45,7 @@ Nótese las relaciones N:N que se convertirán a tablas en nuestra base de datos
 *Admin* y *Moderator* heredarán de *User*. El atributo **seller** es un *bool* que marca si el usuario tiene autorización para vender o no.
 
 
-![Diagram](Docs/design/tridi.diagrama.svg)
+![Diagram](docs/design/tridi.diagrama.svg)
 
 ## Bibliografía - Uso de Código
 
