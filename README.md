@@ -56,4 +56,4 @@ Nótese las relaciones N:N que se convertirán a tablas en nuestra base de datos
 - **Card Animado by *Centered101* > CardAboutUs:** https://uiverse.io/Centered101/cowardly-newt-15 / Elemento utilizado para animar las tarjetas de presentación personal en el componente *CardAboutUs* utilizados y vistos en la página de */about-us*.
 
 ### User stories
-Las historias de usuario se encuentran [acá](docs/user-Stories.pdf).
+Las historias de usuario se encuentran [acá](docs/User-Stories.pdf).
