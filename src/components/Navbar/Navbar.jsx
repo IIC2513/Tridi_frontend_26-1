@@ -6,6 +6,8 @@ import "./Navbar.css";
 
 export default function Navbar() {
 
+  const navigate = useNavigate();
+
   const scrollLeft  = () => {
     const scroll = document.querySelector(".navbarNav");
     scroll.scrollLeft -= 200;
@@ -15,6 +17,11 @@ export default function Navbar() {
     const scroll = document.querySelector(".navbarNav");
     scroll.scrollLeft += 200;
   };
+
+  const handleCatalogue = () => {
+    navigate('/catalogue');
+  };
+
 
   return (
     <header>
@@ -29,7 +36,7 @@ export default function Navbar() {
                 <div className="navbarNav">
                     <ul className="navList">
                         <li>
-                            <button className="buttonNav">
+                            <button className="buttonNav" onClick={handleCatalogue}>
                                 <span className="box">
                                     Catalogue
                                 </span>
