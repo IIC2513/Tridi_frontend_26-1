@@ -1,0 +1,106 @@
+.filterSidebar {
+  width: 240px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  border-right: 1px solid #2a2a2a;
+  padding-right: 24px;
+}
+
+.filterSearch {
+  position: relative;
+}
+
+.filterSearchIcon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #808080;
+  font-size: 18px;
+  pointer-events: none;
+}
+
+.filterSearchInput {
+  width: 100%;
+  padding: 10px 12px 10px 38px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #ffffff;
+  background-color: #2a2a2a;
+  border: 1px solid #3a3a3a;
+  border-radius: 6px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.filterSearchInput::placeholder {
+  color: #707070;
+}
+
+.filterSearchInput:focus {
+  border-color: #e97042;
+}
+
+.filterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid #2a2a2a;
+  padding-top: 16px;
+}
+
+.filterLabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #D96E3A;
+  letter-spacing: 0.08em;
+}
+
+.filterChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: #ffffff;
+  background: transparent;
+  border: 1px solid #4a4a4a;
+  border-radius: 20px;
+  padding: 5px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chip:hover {
+  border-color: #888;
+}
+
+.chipSelected {
+  border-color: #e97042;
+  color: #e97042;
+}
+
+.chipActive {
+  background-color: #D96E3A;
+  border-color: #D96E3A;
+  color: #1e1e1e;
+  font-weight: 600;
+}
+
+.chipActive:hover {
+  background-color: #e97e48;
+  border-color: #e97e48;
+}
+
+.chipClose {
+  font-size: 14px;
+}

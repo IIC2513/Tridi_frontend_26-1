@@ -6,7 +6,7 @@ const products = [
     price: 24.99,
     image: "",
     model: "/models/statue.glb",
-    tags: ["statue"],
+    tags: ["statue", "Blender", "GLB", "Realistic"],
   },
 ];
 
