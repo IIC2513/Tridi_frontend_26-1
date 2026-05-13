@@ -234,12 +234,12 @@ export default function DocsPage() {
               </p>
 
               <details className="docsFaq">
-                <summary>How do I reset my password?</summary>
-                <p>
-                  On the login page, click <em>Forgotten your password?</em> and
-                  follow the email instructions.
-                </p>
-              </details>
+            <summary>How do I reset my password?</summary>
+            <p>
+                On the <Link to="/login" className="docsLink">login page</Link>, click{" "}
+                <em>Forgotten your password?</em> and follow the email instructions.
+            </p>
+            </details>
               <details className="docsFaq">
                 <summary>What 3D formats does Tridi support?</summary>
                 <p>
