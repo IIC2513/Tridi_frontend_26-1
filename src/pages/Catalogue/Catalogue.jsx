@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
@@ -12,10 +12,30 @@ const FILTERS = [
   { label: "STYLE",    options: ["Realistic", "Stylized", "Low-Poly"] },
 ];
 
+const SORT_OPTIONS = [
+  { value: "newest",    label: "NEWEST" },
+  { value: "oldest",    label: "OLDEST" },
+  { value: "priceAsc",  label: "PRICE: ASCENDING" },
+  { value: "priceDesc", label: "PRICE: DESCENDING" },
+];
+
 export default function Catalogue() {
   const [query, setQuery] = useState("");
   const [activeFilters, setActiveFilters] = useState([]);
+  const [sortBy, setSortBy] = useState("newest");
+  const [sortOpen, setSortOpen] = useState(false);
+  const sortRef = useRef(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (sortRef.current && !sortRef.current.contains(e.target)) {
+        setSortOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const toggleFilter = (f) => {
     setActiveFilters((prev) =>
@@ -25,30 +45,44 @@ export default function Catalogue() {
 
   const visibleProducts = useMemo(() => {
     let result = products;
-
     const q = query.trim().toLowerCase();
     if (q) {
       result = result.filter((p) =>
-        // tag acá = BlenderGLBRealistic
         `${p.name} ${p.artist} ${p.tags.join(" ")}`.toLowerCase().includes(q)
       );
     }
-
     if (activeFilters.length > 0) {
       result = result.filter((p) =>
-        activeFilters.every((f) => p.tags.map((t) => t.toLowerCase()).includes(f.toLowerCase()))
+        activeFilters.every((f) =>
+          p.tags.map((t) => t.toLowerCase()).includes(f.toLowerCase())
+        )
       );
     }
 
+    result = [...result];
+    switch (sortBy) {
+      case "oldest":
+        result.reverse();
+        break;
+      case "priceAsc":
+        result.sort((a, b) => a.price - b.price);
+        break;
+      case "priceDesc":
+        result.sort((a, b) => b.price - a.price);
+        break;
+      default:
+        break;
+    }
     return result;
-  }, [query, activeFilters]);
+  }, [query, activeFilters, sortBy]);
+
+  const currentSortLabel = SORT_OPTIONS.find((o) => o.value === sortBy)?.label;
 
   return (
     <>
       <Navbar />
       <main className="cataloguePage">
         <h1 className="catalogueTitle">Catalogue</h1>
-
         <div className="catalogueBody">
           <FilterSidebar
             query={query}
@@ -57,11 +91,39 @@ export default function Catalogue() {
             activeFilters={activeFilters}
             onToggleFilter={toggleFilter}
           />
-
           <section className="catalogueMain">
-            <div className="catalogueSort">
+            <div className="catalogueSort" ref={sortRef}>
               <span className="sortLabel">SORT BY</span>
-              <span className="sortValue">NEWEST</span>
+              <div className="sortDropdown">
+                <button
+                  type="button"
+                  className="sortToggle"
+                  onClick={() => setSortOpen((o) => !o)}
+                >
+                  {currentSortLabel}
+                  <span className="sortCaret">{sortOpen ? "▴" : "▾"}</span>
+                </button>
+                {sortOpen && (
+                  <ul className="sortMenu">
+                    {SORT_OPTIONS.map((opt) => (
+                      <li key={opt.value}>
+                        <button
+                          type="button"
+                          className={`sortOption ${
+                            sortBy === opt.value ? "active" : ""
+                          }`}
+                          onClick={() => {
+                            setSortBy(opt.value);
+                            setSortOpen(false);
+                          }}
+                        >
+                          {opt.label}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
 
             {visibleProducts.length === 0 ? (

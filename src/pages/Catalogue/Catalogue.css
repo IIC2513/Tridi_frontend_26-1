@@ -28,6 +28,7 @@
 .catalogueSort {
   display: flex;
   gap: 16px;
+  align-items: center;
   margin-bottom: 24px;
   padding-bottom: 12px;
   border-bottom: 1px solid #2a2a2a;
@@ -49,12 +50,80 @@
   color: #ffffff;
 }
 
+.sortDropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.sortToggle {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sortCaret {
+  font-size: 0.7rem;
+  color: #808080;
+}
+
+.sortMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  background-color: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  min-width: 220px;
+  z-index: 100;
+}
+
+.sortMenu li {
+  margin: 0;
+  padding: 0;
+}
+
+.sortOption {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 10px 14px;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sortOption:hover {
+  background-color: #2a2a2a;
+}
+
+.sortOption.active {
+  color: #D96E3A;
+}
+
 .catalogueGrid {
   justify-items: center;
   justify-content: center;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: 24px;
+  row-gap: 36px;
 }
 
 .catalogueEmpty {
