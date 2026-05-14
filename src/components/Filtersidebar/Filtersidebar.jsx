@@ -1,5 +1,5 @@
 import { MdSearch, MdClose } from "react-icons/md";
-import "./FilterSidebar.css";
+import "./Filtersidebar.css";
 
 export default function FilterSidebar({ query, onQueryChange, filters, activeFilters, onToggleFilter }) {
   return (

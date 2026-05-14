@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-import FilterSidebar from "../../components/FilterSidebar/FilterSidebar";
+import FilterSidebar from "../../components/Filtersidebar/Filtersidebar";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import products from "../../data/products";
 import "./Catalogue.css";
