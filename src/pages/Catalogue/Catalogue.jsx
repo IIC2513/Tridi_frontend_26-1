@@ -4,7 +4,9 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import FilterSidebar from "../../components/Filtersidebar/Filtersidebar";
 import ProductCard from "../../components/ProductCard/ProductCard";
-import products from "../../data/products";
+import { getModels } from "../../api/models";
+import ScrollProgressBar from "../../components/ScrollProgressBar/ScrollProgressBar";
+import SortDropdown from "../../components/SortDropdown/SortDropdown";
 import "./Catalogue.css";
 
 const FILTERS = [
@@ -20,21 +22,28 @@ const SORT_OPTIONS = [
 ];
 
 export default function Catalogue() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading]   = useState(true);
+  const [error, setError]       = useState("");
+
   const [query, setQuery] = useState("");
   const [activeFilters, setActiveFilters] = useState([]);
   const [sortBy, setSortBy] = useState("newest");
-  const [sortOpen, setSortOpen] = useState(false);
-  const sortRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    function handleClickOutside(e) {
-      if (sortRef.current && !sortRef.current.contains(e.target)) {
-        setSortOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    let cancelled = false;
+
+    getModels()
+      .then((data) => { if (!cancelled) setProducts(data); })
+      .catch((err) => {
+        if (!cancelled) {
+          setError(err?.response?.data?.error || "Couldn't load models.");
+        }
+      })
+      .finally(() => { if (!cancelled) setLoading(false); });
+
+    return () => { cancelled = true; };
   }, []);
 
   const toggleFilter = (f) => {
@@ -61,8 +70,11 @@ export default function Catalogue() {
 
     result = [...result];
     switch (sortBy) {
+      case "newest":
+        result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        break;
       case "oldest":
-        result.reverse();
+        result.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
         break;
       case "priceAsc":
         result.sort((a, b) => a.price - b.price);
@@ -74,13 +86,12 @@ export default function Catalogue() {
         break;
     }
     return result;
-  }, [query, activeFilters, sortBy]);
-
-  const currentSortLabel = SORT_OPTIONS.find((o) => o.value === sortBy)?.label;
+  }, [products, query, activeFilters, sortBy]);
 
   return (
     <>
       <Navbar />
+      <ScrollProgressBar />
       <main className="cataloguePage">
         <h1 className="catalogueTitle">Catalogue</h1>
         <div className="catalogueBody">
@@ -92,41 +103,17 @@ export default function Catalogue() {
             onToggleFilter={toggleFilter}
           />
           <section className="catalogueMain">
-            <div className="catalogueSort" ref={sortRef}>
-              <span className="sortLabel">SORT BY</span>
-              <div className="sortDropdown">
-                <button
-                  type="button"
-                  className="sortToggle"
-                  onClick={() => setSortOpen((o) => !o)}
-                >
-                  {currentSortLabel}
-                  <span className="sortCaret">{sortOpen ? "▴" : "▾"}</span>
-                </button>
-                {sortOpen && (
-                  <ul className="sortMenu">
-                    {SORT_OPTIONS.map((opt) => (
-                      <li key={opt.value}>
-                        <button
-                          type="button"
-                          className={`sortOption ${
-                            sortBy === opt.value ? "active" : ""
-                          }`}
-                          onClick={() => {
-                            setSortBy(opt.value);
-                            setSortOpen(false);
-                          }}
-                        >
-                          {opt.label}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </div>
+            <SortDropdown
+              options={SORT_OPTIONS}
+              value={sortBy}
+              onChange={setSortBy}
+            />
 
-            {visibleProducts.length === 0 ? (
+            {loading ? (
+              <p className="catalogueEmpty">Loading models…</p>
+            ) : error ? (
+              <p className="catalogueEmpty">{error}</p>
+            ) : visibleProducts.length === 0 ? (
               <p className="catalogueEmpty">No models found.</p>
             ) : (
               <div className="catalogueGrid">

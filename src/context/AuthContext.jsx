@@ -1,39 +1,50 @@
 import { createContext, useState, useEffect } from "react";
+import { login as loginRequest, register as registerRequest } from "../api/auth";
 
 export const AuthContext = createContext(null);
+
+const USER_KEY  = "tridi_user";
+const TOKEN_KEY = "tridi_token";
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const stored = localStorage.getItem("tridi_user");
+    const stored = localStorage.getItem(USER_KEY);
     if (stored) {
       try {
         setUser(JSON.parse(stored));
       } catch {
-        localStorage.removeItem("tridi_user");
+        localStorage.removeItem(USER_KEY);
       }
     }
     setLoading(false);
   }, []);
 
-  const login = async ({ email, password }) => {
-    const fakeUser = { email, name: email.split("@")[0] };
-    localStorage.setItem("tridi_user", JSON.stringify(fakeUser));
-    setUser(fakeUser);
-    return fakeUser;
+  const persist = (token, user) => {
+    localStorage.setItem(TOKEN_KEY, token);
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
+    setUser(user);
   };
 
-  const register = async ({ firstName, lastName, email, password }) => {
-    const fakeUser = { email, name: `${firstName} ${lastName}` };
-    localStorage.setItem("tridi_user", JSON.stringify(fakeUser));
-    setUser(fakeUser);
-    return fakeUser;
+  const login = async ({ username, password }) => {
+    const { token, user } = await loginRequest(username, password);
+    if (!token || !user) throw new Error("Credenciales inválidas.");
+    persist(token, user);
+    return user;
+  };
+
+  const register = async ({ username, password }) => {
+    const { token, user } = await registerRequest(username, password);
+    if (!token) throw new Error("El usuario ya existe.");
+    persist(token, user);
+    return user;
   };
 
   const logout = () => {
-    localStorage.removeItem("tridi_user");
+    localStorage.removeItem(USER_KEY);
+    localStorage.removeItem(TOKEN_KEY);
     setUser(null);
   };
 

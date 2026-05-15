@@ -1,21 +1,28 @@
-import axios from "axios";
+import client from "./client";
 
-const API_URL = import.meta.env.VITE_API_URL;
+function toUser(u) {
+  return {
+    id:       u.id,
+    username: u.username,
+    image:    u.image ?? null,
+    seller:   u.seller ?? false,
+    role:     u.role ?? null,
+  };
+}
 
+export async function login(username, password) {
+  const { data } = await client.post("/auth/login", { username, password });
+  return {
+    token: data.session?.token ?? null,
+    user:  data.user ? toUser(data.user) : null,
+  };
+}
 
-export const login = async (username, password) => {
-  const { data } = await axios.post(`${API_URL}/auth/login`, {
-    username,
-    password,
-  });
-  return data;
-};
-
-export const register = async (username, password) => {
-  const { data } = await axios.post(`${API_URL}/auth/register`, {
-    username,
-    password,
-  });
-  return data;
-};
+export async function register(username, password) {
+  const { data } = await client.post("/auth/register", { username, password });
+  return {
+    token: data.session?.token ?? null,
+    user:  data.user ? toUser(data.user) : null,
+  };
+}
 

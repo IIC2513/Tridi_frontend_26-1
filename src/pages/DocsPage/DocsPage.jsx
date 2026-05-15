@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import ScrollProgressBar from "../../components/ScrollProgressBar/ScrollProgressBar";
 import "./DocsPage.css";
 
 const NAV_SECTIONS = [
@@ -16,7 +17,6 @@ const NAV_SECTIONS = [
 
 export default function DocsPage() {
   const [activeId, setActiveId] = useState(NAV_SECTIONS[0].id);
-  const [progress, setProgress] = useState(0);
   const sectionRefs = useRef({});
 
   useEffect(() => {
@@ -36,17 +36,6 @@ export default function DocsPage() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const updateProgress = () => {
-      const scrolled = window.scrollY;
-      const total = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(total > 0 ? (scrolled / total) * 100 : 0);
-    };
-    updateProgress();
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    return () => window.removeEventListener("scroll", updateProgress);
-  }, []);
-
   const handleNavClick = (id) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -58,7 +47,7 @@ export default function DocsPage() {
 
   return (
     <>
-      <div className="docsProgress" style={{ width: `${progress}%` }} />
+      <ScrollProgressBar />
       <Navbar />
 
       <main className="docsPage">

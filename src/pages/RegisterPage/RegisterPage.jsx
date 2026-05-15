@@ -1,31 +1,38 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import AuthField from "../../components/AuthField/AuthField";
 import Button from "../../components/Button/Button";
+import { AuthContext } from "../../context/AuthContext";
 import "../LoginPage/LoginPage.css";
 import "./RegisterPage.css";
 
 export default function RegisterPage() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
-
+  const { register } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Register attempt:", formData);
-    // navigate("/login");
+    setError("");
+    setSubmitting(true);
+    try {
+      await register(formData);
+      navigate("/account");
+    } catch (err) {
+      setError(err?.response?.data?.error || err.message || "Registration failed.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -35,36 +42,14 @@ export default function RegisterPage() {
         <div className="authContainer">
           <h1 className="authTitle">Create an account</h1>
           <div className="authTitleUnderline" />
-
           <form className="authForm" onSubmit={handleSubmit} noValidate>
-            <div className="authFieldRow">
-              <AuthField
-                label="First name"
-                type="text"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                autoComplete="given-name"
-                required
-              />
-              <AuthField
-                label="Last name"
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                autoComplete="family-name"
-                required
-              />
-            </div>
-
             <AuthField
-              label="Email address"
-              type="email"
-              name="email"
-              value={formData.email}
+              label="Username"
+              type="text"
+              name="username"
+              value={formData.username}
               onChange={handleChange}
-              autoComplete="email"
+              autoComplete="username"
               required
             />
             <AuthField
@@ -77,10 +62,11 @@ export default function RegisterPage() {
               required
             />
 
-            <Button type="submit" variant="primary">
-              CREATE ACCOUNT
-            </Button>
+            {error ? <p className="authError" role="alert">{error}</p> : null}
 
+            <Button type="submit" variant="primary" disabled={submitting}>
+              {submitting ? "CREATING…" : "CREATE ACCOUNT"}
+            </Button>
             <Link to="/login" className="authSwitchLink">
               Got an account?
             </Link>
