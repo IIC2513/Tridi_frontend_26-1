@@ -55,7 +55,7 @@ Nótese las relaciones N:N que se convertirán a tablas en nuestra base de datos
 
 ![Diagram](docs/design/tridi.diagrama.svg)
 
-### User stories
+## User stories
 1. Como **Moderador** me gustaría catalogar y nivelar a los usuarios según su comportamiento en el sitio, para así llevar un registro y poder diferenciarlos y marcarlos de manera positiva o negativa (Vendedores o Clientes).
 2. Como **Administrador** me gustaría tener acceso a vistas exclusivas, como lista total de usuarios y nivel de comportamiento de sus cuentas, para controlar la calidad de la comunidad deseada en el sitio.
 3. Como **Vendedor**, quiero poder ver, agregar, y vender modelos 3D que yo suba a mi tienda, para así generar ingresos.
