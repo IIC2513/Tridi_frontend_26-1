@@ -55,14 +55,6 @@ Nótese las relaciones N:N que se convertirán a tablas en nuestra base de datos
 
 ![Diagram](docs/design/tridi.diagrama.svg)
 
-## Bibliografía - Uso de Código
-
-- **Botón Animado by *ryota1231* > Landing Page:** https://uiverse.io/ryota1231/fast-mouse-17 / Elemento utilizado para animar el botón de *"Enter the catalogue"*.
-- **Botón Destacado by *WhiteNervosa* > Footer:** https://uiverse.io/WhiteNervosa/popular-ladybug-27/ / Decoración utilizada para animar los botones del *Footer*, es decir, de la hilera de opciones que están al final de la página.
-- **Botón Navbar by *Cornerstone-04* > Navbar:** https://uiverse.io/Cornerstone-04/bitter-impala-54 / Animación utilizada en los botones principales del Navbar. Modificado para igual calzar con la estética de la página.
-- **Animación by *Gaurav-WebDev* > Navbar:** https://uiverse.io/Gaurav-WebDev/tall-mayfly-60 / Elemento utilizado para el botón de *'Cart'* en el Navbar, y así diferenciarlo con el resto de botones de navegación.
-- **Card Animado by *Centered101* > CardAboutUs:** https://uiverse.io/Centered101/cowardly-newt-15 / Elemento utilizado para animar las tarjetas de presentación personal en el componente *CardAboutUs* utilizados y vistos en la página de */about-us*.
-
 ### User stories
 1. Como **Moderador** me gustaría catalogar y nivelar a los usuarios según su comportamiento en el sitio, para así llevar un registro y poder diferenciarlos y marcarlos de manera positiva o negativa (Vendedores o Clientes).
 2. Como **Administrador** me gustaría tener acceso a vistas exclusivas, como lista total de usuarios y nivel de comportamiento de sus cuentas, para controlar la calidad de la comunidad deseada en el sitio.
@@ -82,3 +74,10 @@ Nótese las relaciones N:N que se convertirán a tablas en nuestra base de datos
 16. Como **Vendedor** quiero tener tags para que mis productos sean más fáciles de encontrar.
 17. Como **Cliente** quiero tener una wishlist, para así marcar los productos en los que estoy interesado.
 
+## Bibliografía - Uso de Código
+
+- **Botón Animado by *ryota1231* > Landing Page:** https://uiverse.io/ryota1231/fast-mouse-17 / Elemento utilizado para animar el botón de *"Enter the catalogue"*.
+- **Botón Destacado by *WhiteNervosa* > Footer:** https://uiverse.io/WhiteNervosa/popular-ladybug-27/ / Decoración utilizada para animar los botones del *Footer*, es decir, de la hilera de opciones que están al final de la página.
+- **Botón Navbar by *Cornerstone-04* > Navbar:** https://uiverse.io/Cornerstone-04/bitter-impala-54 / Animación utilizada en los botones principales del Navbar. Modificado para igual calzar con la estética de la página.
+- **Animación by *Gaurav-WebDev* > Navbar:** https://uiverse.io/Gaurav-WebDev/tall-mayfly-60 / Elemento utilizado para el botón de *'Cart'* en el Navbar, y así diferenciarlo con el resto de botones de navegación.
+- **Card Animado by *Centered101* > CardAboutUs:** https://uiverse.io/Centered101/cowardly-newt-15 / Elemento utilizado para animar las tarjetas de presentación personal en el componente *CardAboutUs* utilizados y vistos en la página de */about-us*.
