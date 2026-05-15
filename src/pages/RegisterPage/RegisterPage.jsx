@@ -20,7 +20,11 @@ function extractError(err, fallback) {
 export default function RegisterPage() {
   const { register } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({
+    email: "",
+    username: "",
+    password: "",
+  });
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
@@ -34,10 +38,7 @@ export default function RegisterPage() {
     setError("");
     setSubmitting(true);
     try {
-      await register({
-        ...formData,
-        username: formData.email.split("@")[0],
-      });
+      await register(formData);
       navigate("/catalogue", {
         state: {
           flash: {
@@ -72,6 +73,15 @@ export default function RegisterPage() {
               required
             />
             <AuthField
+              label="Username"
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              autoComplete="username"
+              required
+            />
+            <AuthField
               label="Password"
               type="password"
               name="password"
@@ -93,4 +103,4 @@ export default function RegisterPage() {
       <Footer />
     </>
   );
-}
+} 

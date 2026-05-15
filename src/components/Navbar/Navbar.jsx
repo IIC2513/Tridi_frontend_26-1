@@ -32,9 +32,13 @@ export default function Navbar() {
     }
   };
 
-  const handleLogout = () => {
-    logout();
-    navigate("/");
+  const handleAccountOrLogout = () => {
+    if (isAuthenticated) {
+      logout();
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -67,18 +71,17 @@ export default function Navbar() {
                   <span className="box">For You</span>
                 </button>
               </li>
-            <li>
-            <button
-            className="buttonNav"
-            onClick={() =>
-                isAuthenticated ? navigate("/account") : navigate("/login")
-            }
-            >
-            <span className="box">
-                {isAuthenticated ? "Account" : "Login"} 
-            </span>
-            </button>
-            </li>
+              <li>
+                <button
+                  className="buttonNav"
+                  onClick={handleAccountOrLogout}
+                  title={isAuthenticated ? user?.name : undefined}
+                >
+                  <span className="box">
+                    {isAuthenticated ? "Logout" : "Login"}
+                  </span>
+                </button>
+              </li>
               <li>
                 <button className="buttonNav" onClick={() => navigate("/docs-page")}>
                   <span className="box">DOCS</span>
@@ -92,15 +95,9 @@ export default function Navbar() {
         </nav>
 
         <nav className="navbar">
-          {isAuthenticated ? (
-            <button className="buttonMerc type1" onClick={handleLogout} title={user?.name}>
-              <span className="btn-txt">Logout</span>
-            </button>
-          ) : (
-            <button className="buttonMerc type1" onClick={handleCart}>
-              <span className="btn-txt">Cart</span>
-            </button>
-          )}
+          <button className="buttonMerc type1" onClick={handleCart}>
+            <span className="btn-txt">Cart</span>
+          </button>
         </nav>
       </section>
     </header>
