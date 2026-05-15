@@ -32,10 +32,19 @@ Este último será actualizado en cada entrega utilizando *screenshots* de la p�
 ![alt text](docs/design/image-5.png)
 
 ### Captura Actual - *Landing Page*
-![alt text](docs/design/screenshots/LandingPage-E0.png)
+<img width="1436" height="814" alt="image" src="https://github.com/user-attachments/assets/211eb011-8d5d-405e-9f2e-055380eb229d" />
+
 
 ### Captura Actual - *About-Us Page*
 ![alt text](docs/design/screenshots/AboutUsPage-E0.png)
+
+### Captura Actual - *Catalogue Page* (*Main Page*)
+<img width="1420" height="814" alt="image" src="https://github.com/user-attachments/assets/c9771534-c139-4d3f-86f8-4d219575312c" />
+
+### Captura Actual - *Docs Page*
+<img width="1416" height="816" alt="image" src="https://github.com/user-attachments/assets/9e13e87c-c866-43f6-9d81-7a30e5584f32" />
+
+
 
 ## Diagrama E/R
 A continuación tenemos lo que es actualmente nuestro **Diagrama Entidad-Relación**. 
