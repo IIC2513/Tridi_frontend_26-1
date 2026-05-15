@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import FilterSidebar from "../../components/Filtersidebar/Filtersidebar";
@@ -7,6 +7,7 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import { getModels } from "../../api/models";
 import ScrollProgressBar from "../../components/ScrollProgressBar/ScrollProgressBar";
 import SortDropdown from "../../components/SortDropdown/SortDropdown";
+import StatusMessage from "../../components/StatusMessage/StatusMessage";
 import "./Catalogue.css";
 
 const FILTERS = [
@@ -29,7 +30,16 @@ export default function Catalogue() {
   const [query, setQuery] = useState("");
   const [activeFilters, setActiveFilters] = useState([]);
   const [sortBy, setSortBy] = useState("newest");
+
   const navigate = useNavigate();
+  const location = useLocation();
+  const [flash, setFlash] = useState(location.state?.flash || null);
+
+  useEffect(() => {
+    if (location.state?.flash) {
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -130,6 +140,14 @@ export default function Catalogue() {
         </div>
       </main>
       <Footer />
+      {flash && (
+        <StatusMessage
+          variant={flash.type}
+          title={flash.title}
+          message={flash.message}
+          onDismiss={() => setFlash(null)}
+        />
+      )}
     </>
   );
 }

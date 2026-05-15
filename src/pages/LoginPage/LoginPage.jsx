@@ -1,19 +1,51 @@
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import AuthField from "../../components/AuthField/AuthField";
 import Button from "../../components/Button/Button";
+import ProviderButton from "../../components/ProviderButton/ProviderButton";
 import { AuthContext } from "../../context/AuthContext";
 import "./LoginPage.css";
 
-export default function LoginPage() {
-  const { login } = useContext(AuthContext);
-  const navigate = useNavigate();
+function extractError(err, fallback) {
+  return (
+    err?.response?.data?.error?.message ||
+    err?.response?.data?.error ||
+    err?.message ||
+    fallback
+  );
+}
 
-  const [formData, setFormData] = useState({ username: "", password: "" });
+export default function LoginPage() {
+  const { login, loginWithProvider, completeProviderLogin } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [twitchLoading, setTwitchLoading] = useState(false);
+
+  useEffect(() => {
+    const token = searchParams.get("token");
+    const user = searchParams.get("user");
+    if (!token) return;
+    (async () => {
+      setSubmitting(true);
+      try {
+        await completeProviderLogin({ token, user });
+        setSearchParams({}, { replace: true });
+        navigate("/catalogue", {
+          replace: true,
+          state: { flash: { type: "success", message: "Logged in with Twitch." } },
+        });
+      } catch (err) {
+        setError(extractError(err, "Twitch login failed."));
+      } finally {
+        setSubmitting(false);
+      }
+    })();
+  }, [searchParams, completeProviderLogin, navigate, setSearchParams]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,11 +58,24 @@ export default function LoginPage() {
     setSubmitting(true);
     try {
       await login(formData);
-      navigate("/account");
+      navigate("/catalogue", {
+        state: { flash: { type: "success", message: "Welcome back." } },
+      });
     } catch (err) {
-      setError(err?.response?.data?.error || err.message || "Login failed.");
+      setError(extractError(err, "Login failed."));
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleTwitchLogin = async () => {
+    setError("");
+    setTwitchLoading(true);
+    try {
+      await loginWithProvider("TWITCH");
+    } catch (err) {
+      setError(extractError(err, "Could not start Twitch login."));
+      setTwitchLoading(false);
     }
   };
 
@@ -43,12 +88,12 @@ export default function LoginPage() {
           <div className="authTitleUnderline" />
           <form className="authForm" onSubmit={handleSubmit} noValidate>
             <AuthField
-              label="Username"
-              type="text"
-              name="username"
-              value={formData.username}
+              label="Email"
+              type="email"
+              name="email"
+              value={formData.email}
               onChange={handleChange}
-              autoComplete="username"
+              autoComplete="email"
               required
             />
             <AuthField
@@ -63,12 +108,21 @@ export default function LoginPage() {
             <Link to="/forgot-password" className="authForgotLink">
               Forgotten your password?
             </Link>
-
             {error ? <p className="authError" role="alert">{error}</p> : null}
-
             <Button type="submit" variant="primary" disabled={submitting}>
               {submitting ? "LOGGING IN…" : "LOGIN"}
             </Button>
+            <div className="alt-signin">
+              <p>Sign in alternatives:</p>
+              <div className="site-icons">
+                <ProviderButton
+                  provider="TWITCH"
+                  onClick={handleTwitchLogin}
+                  disabled={submitting || twitchLoading}
+                  loading={twitchLoading}
+                />
+              </div>
+            </div>
             <Link to="/register" className="authSwitchLink">
               Create an account
             </Link>

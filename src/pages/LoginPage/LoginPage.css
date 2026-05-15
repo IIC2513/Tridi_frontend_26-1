@@ -93,6 +93,19 @@
   box-sizing: border-box;
 }
 
+.alt-signin {
+  margin-top: 3vh;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-icons {
+  display: flex;
+  margin-top: 1vh;
+}
+
 @media (max-width: 600px) {
   .authFieldRow {
     grid-template-columns: 1fr;
