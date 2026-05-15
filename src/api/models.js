@@ -1,15 +1,23 @@
 import client from "./client";
 
 function toModel(model) {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
+  const glbFile = model.files?.find(
+    (file) => file.extension === "glb"
+  );
+
   return {
-    id:        model.id,
-    name:      model.name,
-    artist:    model.creator?.username ?? "Unknown",
-    price:     Number(model.price),
-    tags:      model.tags ?? [],
-    image:     model.files?.find((f) => f.type?.startsWith("image"))?.url
-               ?? model.files?.[0]?.url
-               ?? null,
+    id: model.id,
+    name: model.name,
+    artist: model.creator?.username ?? "Unknown",
+    price: Number(model.price),
+    tags: model.tags ?? [],
+
+    modelUrl: glbFile
+      ? `${apiUrl}${glbFile.route}`
+      : null,
+
     createdAt: model.createdAt,
   };
 }
