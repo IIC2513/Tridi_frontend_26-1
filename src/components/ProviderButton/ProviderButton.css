@@ -1,0 +1,48 @@
+.providerBtn {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.providerBtn:hover:not(:disabled) {
+  border-color: #D96E3A;
+  color: #D96E3A;
+  transform: translateY(-1px);
+}
+
+.providerBtn:focus-visible {
+  outline: none;
+  border-color: #D96E3A;
+  box-shadow: 0 0 0 3px rgba(217, 110, 58, 0.25);
+}
+
+.providerBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.providerBtnDot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #D96E3A;
+  animation: providerBtnPulse 1s ease-in-out infinite;
+}
+
+@keyframes providerBtnPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}

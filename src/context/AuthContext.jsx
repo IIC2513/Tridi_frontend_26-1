@@ -1,9 +1,14 @@
 import { createContext, useState, useEffect } from "react";
-import { login as loginRequest, register as registerRequest } from "../api/auth";
+import {
+  login as loginRequest,
+  register as registerRequest,
+  loginWithProvider as providerRequest,
+  completeProviderLogin as completeProviderRequest,
+} from "../api/auth";
 
 export const AuthContext = createContext(null);
 
-const USER_KEY  = "tridi_user";
+const USER_KEY = "tridi_user";
 const TOKEN_KEY = "tridi_token";
 
 export function AuthProvider({ children }) {
@@ -28,16 +33,27 @@ export function AuthProvider({ children }) {
     setUser(user);
   };
 
-  const login = async ({ username, password }) => {
-    const { token, user } = await loginRequest(username, password);
+  const login = async ({ email, password }) => {
+    const { token, user } = await loginRequest(email, password);
     if (!token || !user) throw new Error("Credenciales inválidas.");
     persist(token, user);
     return user;
   };
 
-  const register = async ({ username, password }) => {
-    const { token, user } = await registerRequest(username, password);
+  const register = async (form) => {
+    const { token, user } = await registerRequest(form);
     if (!token) throw new Error("El usuario ya existe.");
+    persist(token, user);
+    return user;
+  };
+
+  const loginWithProvider = async (serviceName) => {
+    await providerRequest(serviceName);
+  };
+
+  const completeProviderLogin = async ({ token: providerToken }) => {
+    const { token, user } = await completeProviderRequest(providerToken);
+    if (!token || !user) throw new Error("No se pudo completar el login.");
     persist(token, user);
     return user;
   };
@@ -54,6 +70,8 @@ export function AuthProvider({ children }) {
     loading,
     login,
     register,
+    loginWithProvider,
+    completeProviderLogin,
     logout,
   };
 

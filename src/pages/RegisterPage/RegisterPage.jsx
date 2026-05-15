@@ -8,11 +8,19 @@ import { AuthContext } from "../../context/AuthContext";
 import "../LoginPage/LoginPage.css";
 import "./RegisterPage.css";
 
+function extractError(err, fallback) {
+  return (
+    err?.response?.data?.error?.message ||
+    err?.response?.data?.error ||
+    err?.message ||
+    fallback
+  );
+}
+
 export default function RegisterPage() {
   const { register } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
@@ -26,10 +34,21 @@ export default function RegisterPage() {
     setError("");
     setSubmitting(true);
     try {
-      await register(formData);
-      navigate("/account");
+      await register({
+        ...formData,
+        username: formData.email.split("@")[0],
+      });
+      navigate("/catalogue", {
+        state: {
+          flash: {
+            type: "success",
+            title: "ACCOUNT CREATED",
+            message: "Welcome to Tridi.",
+          },
+        },
+      });
     } catch (err) {
-      setError(err?.response?.data?.error || err.message || "Registration failed.");
+      setError(extractError(err, "Registration failed."));
     } finally {
       setSubmitting(false);
     }
@@ -44,12 +63,12 @@ export default function RegisterPage() {
           <div className="authTitleUnderline" />
           <form className="authForm" onSubmit={handleSubmit} noValidate>
             <AuthField
-              label="Username"
-              type="text"
-              name="username"
-              value={formData.username}
+              label="Email"
+              type="email"
+              name="email"
+              value={formData.email}
               onChange={handleChange}
-              autoComplete="username"
+              autoComplete="email"
               required
             />
             <AuthField
@@ -61,9 +80,7 @@ export default function RegisterPage() {
               autoComplete="new-password"
               required
             />
-
             {error ? <p className="authError" role="alert">{error}</p> : null}
-
             <Button type="submit" variant="primary" disabled={submitting}>
               {submitting ? "CREATING…" : "CREATE ACCOUNT"}
             </Button>
