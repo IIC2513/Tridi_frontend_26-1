@@ -26,7 +26,7 @@ export default function Navbar() {
 
   const handleCart = () => {
     if (isAuthenticated) {
-      navigate("/cart");
+      navigate("/");
     } else {
       navigate("/login", { state: { from: "/cart" } });
     }
@@ -62,12 +62,12 @@ export default function Navbar() {
                 </button>
               </li>
               <li>
-                <button className="buttonNav" onClick={() => navigate("/artists")}>
+                <button className="buttonNav" onClick={() => navigate("/")}>
                   <span className="box">Artists</span>
                 </button>
               </li>
               <li>
-                <button className="buttonNav" onClick={() => requireAuth("/for-you")}>
+                <button className="buttonNav" onClick={() => requireAuth("/")}> 
                   <span className="box">For You</span>
                 </button>
               </li>
