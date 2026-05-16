@@ -1,78 +1,105 @@
-import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/useAuth";
 import "./Navbar.css";
 
-
 export default function Navbar() {
+  const navigate = useNavigate();
+  const { isAuthenticated, user, logout } = useAuth();
 
-  const scrollLeft  = () => {
+  const scrollLeft = () => {
     const scroll = document.querySelector(".navbarNav");
     scroll.scrollLeft -= 200;
   };
 
-  const scrollRight  = () => {
+  const scrollRight = () => {
     const scroll = document.querySelector(".navbarNav");
     scroll.scrollLeft += 200;
   };
 
+  const requireAuth = (path) => {
+    if (isAuthenticated) {
+      navigate(path);
+    } else {
+      navigate("/login", { state: { from: path } });
+    }
+  };
+
+  const handleCart = () => {
+    if (isAuthenticated) {
+      navigate("/");
+    } else {
+      navigate("/login", { state: { from: "/cart" } });
+    }
+  };
+
+  const handleAccountOrLogout = () => {
+    if (isAuthenticated) {
+      logout();
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
     <header>
-        <section className="containerNavbar">
-            <nav className="navbar">
-                <Link to="/" className="navbarLogo">
-                    <img src="/Tridi..svg"></img>
-                </Link>
-            </nav>
-            <nav className="navbarList">
-                <button className="buttonArrow" onClick={scrollLeft}><img src="arrow-left.svg"/></button>
-                <div className="navbarNav">
-                    <ul className="navList">
-                        <li>
-                            <button className="buttonNav">
-                                <span className="box">
-                                    Catalogue
-                                </span>
-                            </button>
-                        </li>
-                        <li>
-                            <button className="buttonNav">
-                                <span className="box">
-                                    Artists
-                                </span>
-                            </button>
-                        </li>
-                        <li>
-                            <button className="buttonNav">
-                                <span className="box">
-                                    For You
-                                </span>
-                            </button>
-                        </li>
-                        <li>
-                            <button className="buttonNav">
-                                <span className="box">
-                                    Account
-                                </span>
-                            </button>
-                        </li>
-                        <li>
-                            <button className="buttonNav">
-                                <span className="box">
-                                    Top
-                                </span>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-                <button className="buttonArrow" onClick={scrollRight}><img src="arrow-right.svg"/></button>
-            </nav>
-            <nav className="navbar">
-                <button className="buttonMerc type1">
-                    <span className="btn-txt">Cart</span>
+      <section className="containerNavbar">
+        <nav className="navbar">
+          <Link to="/" className="navbarLogo">
+            <img src="/Tridi..svg" alt="Tridi" />
+          </Link>
+        </nav>
+
+        <nav className="navbarList">
+          <button className="buttonArrow" onClick={scrollLeft}>
+            <img src="arrow-left.svg" alt="" />
+          </button>
+          <div className="navbarNav">
+            <ul className="navList">
+              <li>
+                <button className="buttonNav" onClick={() => navigate("/catalogue")}>
+                  <span className="box">Catalogue</span>
                 </button>
-            </nav>
-        </section>
+              </li>
+              <li>
+                <button className="buttonNav" onClick={() => navigate("/")}>
+                  <span className="box">Artists</span>
+                </button>
+              </li>
+              <li>
+                <button className="buttonNav" onClick={() => requireAuth("/")}> 
+                  <span className="box">For You</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  className="buttonNav"
+                  onClick={handleAccountOrLogout}
+                  title={isAuthenticated ? user?.name : undefined}
+                >
+                  <span className="box">
+                    {isAuthenticated ? "Logout" : "Login"}
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button className="buttonNav" onClick={() => navigate("/docs-page")}>
+                  <span className="box">DOCS</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+          <button className="buttonArrow" onClick={scrollRight}>
+            <img src="arrow-right.svg" alt="" />
+          </button>
+        </nav>
+
+        <nav className="navbar">
+          <button className="buttonMerc type1" onClick={handleCart}>
+            <span className="btn-txt">Cart</span>
+          </button>
+        </nav>
+      </section>
     </header>
   );
 }

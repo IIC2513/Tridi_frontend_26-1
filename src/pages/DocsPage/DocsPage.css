@@ -1,0 +1,361 @@
+.docsProgress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background-color: #D96E3A;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.docsPage {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 48px 120px;
+  color: #d4d4d4;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+.docsSidebar {
+  position: sticky;
+  top: 100px;
+  align-self: start;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.docsSidebarLabel {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #808080;
+  margin-bottom: 20px;
+}
+
+.docsNav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.docsNavLink {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  background: none;
+  border: none;
+  border-left: 1px solid #2a2a2a;
+  padding: 10px 0 10px 16px;
+  cursor: pointer;
+  color: #808080;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  transition: color 0.15s ease, border-color 0.15s ease, padding-left 0.2s ease;
+}
+
+.docsNavLink:hover {
+  color: #ffffff;
+}
+
+.docsNavLink.active {
+  color: #ffffff;
+  border-left-color: #D96E3A;
+  border-left-width: 2px;
+  padding-left: 17px;
+}
+
+.docsNavNumber {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: #606060;
+  min-width: 22px;
+}
+
+.docsNavLink.active .docsNavNumber {
+  color: #D96E3A;
+}
+
+.docsNavTitle {
+  font-style: italic;
+}
+
+.docsContent {
+  min-width: 0;
+  max-width: 720px;
+}
+
+.docsHero {
+  margin-bottom: 96px;
+}
+
+.docsKicker {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #D96E3A;
+  margin-bottom: 28px;
+}
+
+.docsTitle {
+  font-family: 'Fraunces', serif;
+  font-size: 6rem;
+  font-weight: 400;
+  font-style: italic;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1;
+}
+
+.docsTitleUnderline {
+  width: 90px;
+  height: 6px;
+  background-color: #D96E3A;
+  margin: 18px 0 36px;
+}
+
+.docsLede {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.35rem;
+  line-height: 1.5;
+  color: #c8c8c8;
+  margin: 0;
+  max-width: 580px;
+}
+
+.docsSection {
+  padding: 64px 0;
+  border-top: 1px solid #1f1f1f;
+}
+
+.docsSection:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.docsSectionHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.docsSectionNumber {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  color: #D96E3A;
+}
+
+.docsSectionTitle {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 2.4rem;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.docsParagraph {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: #c8c8c8;
+  margin: 0 0 20px;
+}
+
+.docsParagraph:last-child {
+  margin-bottom: 0;
+}
+
+.docsList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.docsList li {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #c8c8c8;
+  padding-left: 24px;
+  position: relative;
+}
+
+.docsList li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.85em;
+  width: 10px;
+  height: 1px;
+  background-color: #D96E3A;
+}
+
+.docsList strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.docsLink {
+  color: #ffffff;
+  text-decoration: underline;
+  text-decoration-color: #D96E3A;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.15s ease;
+}
+
+.docsLink:hover {
+  color: #D96E3A;
+}
+
+.docsCallout {
+  margin: 28px 0 0;
+  padding: 20px 24px;
+  border-left: 2px solid #D96E3A;
+  background-color: rgba(217, 110, 58, 0.05);
+  border-radius: 0 6px 6px 0;
+}
+
+.docsCalloutLabel {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #D96E3A;
+  margin-bottom: 8px;
+}
+
+.docsCallout p {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: #c8c8c8;
+}
+
+.docsFaq {
+  border-bottom: 1px solid #1f1f1f;
+  padding: 18px 0;
+}
+
+.docsFaq:first-of-type {
+  border-top: 1px solid #1f1f1f;
+  margin-top: 16px;
+}
+
+.docsFaq summary {
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #ffffff;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: color 0.15s ease;
+}
+
+.docsFaq summary::-webkit-details-marker {
+  display: none;
+}
+
+.docsFaq summary::after {
+  content: "+";
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.2rem;
+  color: #D96E3A;
+  transition: transform 0.2s ease;
+}
+
+.docsFaq[open] summary::after {
+  content: "−";
+}
+
+.docsFaq summary:hover {
+  color: #D96E3A;
+}
+
+.docsFaq p {
+  margin: 14px 0 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #b8b8b8;
+}
+
+.docsEnd {
+  margin-top: 96px;
+  padding-top: 48px;
+  border-top: 1px solid #1f1f1f;
+  text-align: center;
+}
+
+.docsEndMark {
+  display: block;
+  color: #D96E3A;
+  font-size: 0.8rem;
+  margin-bottom: 16px;
+}
+
+.docsEnd p {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: #808080;
+  margin: 0;
+}
+
+@media (max-width: 960px) {
+  .docsPage {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 40px 24px 80px;
+  }
+  .docsSidebar {
+    position: static;
+    max-height: none;
+    border-bottom: 1px solid #2a2a2a;
+    padding-bottom: 24px;
+    padding-right: 0;
+  }
+  .docsTitle {
+    font-size: 4rem;
+  }
+  .docsLede {
+    font-size: 1.15rem;
+  }
+  .docsSectionTitle {
+    font-size: 1.8rem;
+  }
+  .docsHero {
+    margin-bottom: 48px;
+  }
+  .docsSection {
+    padding: 40px 0;
+  }
+}

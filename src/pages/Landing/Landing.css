@@ -1,12 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 .landing-page {
+    position: relative;
     display: flex;
-    flex-direction: column-reverse;
-    
-    img {
-        opacity: 0.5;
-    }
+    flex-direction: column;
+    min-height: 80vh;
+}
+
+.landing-model {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    pointer-events: none;
+}
+
+.section-landing {
+    position: relative;
+    z-index: 1;
 }
 
 .section-landing {
@@ -138,6 +148,8 @@
   opacity: 1;
 }
 
+
+
 /* From Uiverse.io by WhiteNervosa // https://uiverse.io/WhiteNervosa/popular-ladybug-27*/ 
 .button-info {
   font-size: 16px;
@@ -215,19 +227,46 @@
     }
 
     .landing-page {
-        img {
-            height: auto;
-            width: auto;
-            position: absolute;
-            bottom: 0;
-            right: 0;
-        }
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 80vh;
+        
+    }
+
+    .landing-model {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        height: auto;
+        width: 70%;
+        z-index: 0;
+        opacity: 0.85;
+        pointer-events: none;
+    }
+
+    .section-landing {
+        position: relative;
+        z-index: 1;
     }
 }
 
 @media only screen and (min-width: 1600px) {
     .opening-sentence {
         font-size: 128px;
+    }
+
+    .landing-model {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        height: auto;
+        width: 70%;
+        z-index: 0;
+        opacity: 0.85;
+        pointer-events: none;
     }
 
     .opening-middle-sentence {
@@ -243,3 +282,4 @@
         font-size: 20px;
     }
 }
+
