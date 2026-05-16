@@ -48,11 +48,6 @@ Este último será actualizado en cada entrega utilizando *screenshots* de la p�
 ## Diagrama E/R
 A continuación tenemos lo que es actualmente nuestro **Diagrama Entidad-Relación**. 
 
-Nótese las relaciones N:N que se convertirán a tablas en nuestra base de datos, así también como las entidades principales presentes entre *User* y *Model*, además de los comentarios otorgados por *User* a un *Model*.
-
-*Admin* y *Moderator* heredarán de *User*. El atributo **seller** es un *bool* que marca si el usuario tiene autorización para vender o no.
-
-
 ![Diagram](docs/design/tridi.diagrama.svg)
 
 ## User stories
