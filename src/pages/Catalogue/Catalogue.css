@@ -26,11 +26,10 @@
 }
 
 .catalogueGrid {
-  justify-items: center;
-  justify-content: center;
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  row-gap: 36px;
+  grid-template-columns: 1fr;
+  row-gap: 32px;
+  justify-items: center;
 }
 
 .catalogueEmpty {
@@ -44,20 +43,20 @@
   .cataloguePage {
     padding: 0 16px 32px;
   }
+
   .catalogueTitle {
     font-size: 2.5rem;
   }
+
   .catalogueBody {
     flex-direction: column;
   }
+
   .filterSidebar {
     width: 100%;
     border-right: none;
     padding-right: 0;
     border-bottom: 1px solid #2a2a2a;
     padding-bottom: 20px;
-  }
-  .catalogueGrid {
-    grid-template-columns: 1fr;
   }
 }
