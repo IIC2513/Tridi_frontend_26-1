@@ -131,7 +131,7 @@ export default function Catalogue() {
                   <ProductCard
                     key={product.id}
                     product={product}
-                    onClick={() => navigate(`/catalogue/${product.id}`)}
+                    onClick={() => navigate(`/catalogue`)} /* placeholder, debería ser al id */
                   />
                 ))}
               </div>
