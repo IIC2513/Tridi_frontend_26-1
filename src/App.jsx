@@ -5,6 +5,7 @@ import Catalogue from "./pages/Catalogue/Catalogue";
 import DocsPage from "./pages/DocsPage/DocsPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import Profile from "./pages/Profile/Profile";
 import { AuthProvider } from "./context/AuthContext";
 import './App.css'
 
@@ -21,6 +22,7 @@ function App() {
             <Route path="/docs-page" element={<DocsPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/users/:username" element={<Profile />} />
           </Routes>
         </AuthProvider>
       </div>

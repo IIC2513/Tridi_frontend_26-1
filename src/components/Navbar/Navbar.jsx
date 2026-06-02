@@ -52,7 +52,7 @@ export default function Navbar() {
 
         <nav className="navbarList">
           <button className="buttonArrow" onClick={scrollLeft}>
-            <img src="arrow-left.svg" alt="" />
+            <img src="/arrow-left.svg" alt="" />
           </button>
           <div className="navbarNav">
             <ul className="navList">
@@ -66,11 +66,13 @@ export default function Navbar() {
                   <span className="box">Artists</span>
                 </button>
               </li>
-              <li>
-                <button className="buttonNav" onClick={() => requireAuth("/")}> 
-                  <span className="box">For You</span>
-                </button>
-              </li>
+                {isAuthenticated ? (
+                <li>
+                    <button className="buttonNav profile" onClick={() => navigate(`/users/${user.username}`)}>
+                    <span className="box">My Profile</span>
+                    </button>
+                </li>
+                ) : null}
               <li>
                 <button
                   className="buttonNav"
@@ -90,7 +92,7 @@ export default function Navbar() {
             </ul>
           </div>
           <button className="buttonArrow" onClick={scrollRight}>
-            <img src="arrow-right.svg" alt="" />
+            <img src="/arrow-right.svg" alt="" />
           </button>
         </nav>
 

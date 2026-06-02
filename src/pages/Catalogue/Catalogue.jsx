@@ -8,6 +8,7 @@ import { getModels } from "../../api/models";
 import ScrollProgressBar from "../../components/ScrollProgressBar/ScrollProgressBar";
 import SortDropdown from "../../components/SortDropdown/SortDropdown";
 import StatusMessage from "../../components/StatusMessage/StatusMessage";
+import ModelInfo from "../../components/ModelInfo/ModelInfo";
 import "./Catalogue.css";
 
 const FILTERS = [
@@ -26,6 +27,8 @@ export default function Catalogue() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentModel, setProductFile] = useState(null);
 
   const [query, setQuery] = useState("");
   const [activeFilters, setActiveFilters] = useState([]);
@@ -98,10 +101,18 @@ export default function Catalogue() {
     return result;
   }, [products, query, activeFilters, sortBy]);
 
+  const handleCloseModal = (product) => {
+    setIsOpen(!isOpen);
+    setProductFile(product);
+  }; 
+
   return (
     <>
       <Navbar />
       <ScrollProgressBar />
+            {isOpen ? <ModelInfo  handleCloseModal={handleCloseModal} 
+                                    product={currentModel}>
+                        </ModelInfo> : null}
       <main className="cataloguePage">
         <h1 className="catalogueTitle">Catalogue</h1>
         <div className="catalogueBody">
@@ -129,6 +140,7 @@ export default function Catalogue() {
               <div className="catalogueGrid">
                 {visibleProducts.map((product) => (
                   <ProductCard
+                    handleCloseModal={handleCloseModal}
                     key={product.id}
                     product={product}
                     onClick={() => navigate(`/catalogue`)} /* placeholder, debería ser al id */
