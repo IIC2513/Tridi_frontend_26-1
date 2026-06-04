@@ -1,10 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useAuth } from "../../context/useAuth";
 import "./Navbar.css";
+import CartView from "../CartView/CartView";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const { isAuthenticated, user, logout } = useAuth();
+  const [OpenCart, setCartOpen] = useState(false);
 
   const scrollLeft = () => {
     const scroll = document.querySelector(".navbarNav");
@@ -26,7 +29,7 @@ export default function Navbar() {
 
   const handleCart = () => {
     if (isAuthenticated) {
-      navigate("/");
+      setCartOpen(!OpenCart);
     } else {
       navigate("/login", { state: { from: "/cart" } });
     }
@@ -40,6 +43,25 @@ export default function Navbar() {
       navigate("/login");
     }
   };
+
+  const [cartItems, setCartItems] = useState([
+        {
+            id: 1,
+            name: "Shiba",
+            artist: "testuser",
+            price: 22.5,
+        },
+        {
+            id: 2,
+            name: "Dragon",
+            artist: "artist123",
+            price: 15,
+        },
+  ]);
+
+  function removeCart(id) {
+    setCartItems(current => current.filter(item => item.id !== id));
+  }
 
   return (
     <header>
@@ -102,6 +124,11 @@ export default function Navbar() {
           </button>
         </nav>
       </section>
+        {OpenCart ? <CartView  
+            cartItems={cartItems}
+            removeCart={removeCart}
+            handleCloseCart={handleCart}>
+        </CartView> : null}
     </header>
   );
 }

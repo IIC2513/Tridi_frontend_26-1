@@ -23,7 +23,7 @@ export default function ModelInfo({
             </div>
             <div className="containerInfoModel" onClick={(e) => e.stopPropagation()}>
                 <div className="cardInfoModel cartInfo">
-                    <label className="titleInfoModel">{product.name}</label>
+                    <div className="titleInfoModel">{product.name}</div>
                     <div className="steps">
                         <div className="step">
                             <div>
@@ -65,7 +65,7 @@ export default function ModelInfo({
 
                 <div className="cardInfoModel checkout">
                     <div className="footer">
-                        <label className="price">${product.price}</label>
+                        <label className="price">${(product.price).toFixed(2)}</label>
                         <button className="checkout-btn">[ Add to Cart ]</button>
                     </div>
                 </div>
