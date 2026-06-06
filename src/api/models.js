@@ -13,6 +13,8 @@ function toModel(model) {
     artist: model.creator?.username ?? "Unknown",
     price: Number(model.price),
     tags: model.tags ?? [],
+    description: model.description,
+    files: model.files,
 
     modelUrl: glbFile
       ? `${apiUrl}${glbFile.route}`

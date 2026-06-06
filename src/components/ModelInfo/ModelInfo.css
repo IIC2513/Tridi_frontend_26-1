@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.ModalBlackArea {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999999;
+    font-family: 'Fraunces', serif;
+}
+
+.containerModelFull {
+    display: flex;
+    gap: 24px;
+    width: 75vw;
+    max-width: 1400px;
+    align-items: center;
+}
+
+.modelSection {
+    flex: 1;
+    aspect-ratio: 1 / 1;
+    max-height: 450px;
+    background: #111;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* From Uiverse.io by R1SH4BH81 */ 
+/* Body */
+.containerInfoModel {
+    width: 450px;
+    flex-shrink: 0;
+}
+
+.hrModel {
+  height: 1px;
+  background-color: #2e2e2e; /* Dark gray line */
+  border: none;
+}
+
+.cardInfoModel {
+    width: 100%;
+    min-width: 0;
+    background: #1c1c1c;
+  box-shadow:
+    0px 187px 75px rgba(0, 0, 0, 0.01),
+    0px 105px 63px rgba(0, 0, 0, 0.05),
+    0px 47px 47px rgba(0, 0, 0, 0.09),
+    0px 12px 26px rgba(0, 0, 0, 0.1),
+    0px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+.titleInfoModel {
+  width: 100%;
+  height: 50px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  border-bottom: 1px solid #2e2e2e; /* Dark gray */
+  font-weight: 500;
+  font-size: 25px;
+  color: #ffffff; /* White text */
+}
+
+/* Cart */
+.cartInfo {
+  border-radius: 19px 19px 0px 0px;
+}
+
+.cartInfo .steps {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.cartInfo .steps .step {
+  display: grid;
+  gap: 10px;
+}
+
+.cartInfo .steps .step span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff; /* White text */
+  margin-bottom: 8px;
+  display: block;
+}
+
+.cartInfo .steps .step p {
+  font-size: 13px;
+  font-weight: 600;
+  color: #bbbbbb; /* Light gray text */
+}
+
+.checkout .footer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 10px 10px 20px;
+  background-color: #2e2e2e; /* Dark gray background */
+}
+
+.price {
+  font-size: 30px;
+  color: #ffffff; /* White text */
+  font-weight: 500;
+}
+
+.checkout .checkout-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 36px;
+  background: #555555; /* Medium gray button */
+  border-radius: 7px;
+  border: 1px solid #2e2e2e; /* Dark gray border */
+  color: #ffffff; /* White text */
+  font-size: 20px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+  cursor: pointer;
+}
+
+.checkout .checkout-btn:hover {
+  background-color: #777777; /* Slightly lighter gray on hover */
+}
+
+.creatorInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.cartInfo .artist-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 25px;
+  background: #D96E3A;
+  border-radius: 7px;
+  border: 1px solid #8f411a; 
+  color: #ffffff; /* White text */
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
+  cursor: pointer;
+}
+
+.cartInfo .artist-btn:hover {
+  background-color: #8f411a;
+}
+
+.tagsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tagPill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background-color: #D96E3A;
+  color: white;
+  font-weight: 300;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+    .modelSection {
+        display: none;
+    }
+
+    .containerInfoModel {
+        width: 85vw;
+    }
+
+    .cardInfoModel {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .ModalBlackArea {
+        padding: 10px;
+    }
+
+    .containerInfoModel {
+        width: 100%;
+        max-height: 95vh;
+    }
+
+    .titleInfoModel {
+        font-size: 16px;
+        padding: 15px;
+        height: auto;
+    }
+
+    .price {
+        font-size: 18px;
+    }
+
+    .checkout .footer {
+        flex-direction: column;
+        gap: 12px;
+        padding: 15px;
+    }
+
+    .checkout .checkout-btn {
+        width: 100%;
+    }
+}

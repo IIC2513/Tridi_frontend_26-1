@@ -4,7 +4,7 @@ import "./ProductCard.css";
 
 const DRAG_THRESHOLD = 6;
 
-export default function ProductCard({ product, onClick }) {
+export default function ProductCard({ product, onClick, handleCloseModal }) {
   const { name, artist, price, modelUrl, image } = product;
   const priceLabel = price === 0 ? "Free" : `$${price.toFixed(2)}`;
   const downPos = useRef(null);
@@ -42,10 +42,17 @@ export default function ProductCard({ product, onClick }) {
           <img src={image} alt={name} className="productImage" />
         )}
       </div>
-      <div className="productInfo">
-        <h3 className="productName">{name}</h3>
-        <p className="productArtist">{artist}</p>
-        <span className="productPrice">{priceLabel}</span>
+      <div className="productData">
+        <div className="productInfo">
+            <h3 className="productName">{name}</h3>
+            <p className="productArtist">{artist}</p>
+            <span className="productPrice">{priceLabel}</span>
+        </div>
+        <div className="productInfo">
+            <button className="buttonDetails" onClick={() => handleCloseModal(product)}>
+                <span className="text">View Details</span>
+            </button>
+        </div>
       </div>
     </article>
   );
