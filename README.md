@@ -6,7 +6,7 @@
 Tridi es un ecommerce de modelos 3D dirigido a amantes de esculturas digitales y artistas, su fin es proveer un servicio de compra y venta. La característica especial de nuestro sitio son los renders 3D dentro de la página, que provee una forma de evaluar bien la escultura antes de comprarla.
 
 ## Sobre el deploy
-El *Front* se encuentra deployado en `tridi.jessica.cl`,  hosteado por *Cloudflare*. Usamos este proveedor ya que allí está la DNS del dominio, y ya lo habiamos utilizado antes. Además, deseamos hostear así la *base de datos*, ya sea **local**, o también **Cloudflare**, así evitando que los datos se borren cada vez que se hace *deploy*, o tener que esperar a que *Render* cargue.soytonto
+El *Front* se encuentra deployado en `tridi.jessica.cl` (si esa es la versión antigua, probar con: `https://d1e6806f.gitaddpuntoenvguionguionforceampersandampersandgitpushguio.pages.dev`),  hosteado por *Cloudflare*. Usamos este proveedor ya que allí está la DNS del dominio, y ya lo habiamos utilizado antes. Además, deseamos hostear así la *base de datos*, ya sea **local**, o también **Cloudflare**, así evitando que los datos se borren cada vez que se hace *deploy*, o tener que esperar a que *Render* cargue.soytonto
 
 ## Documento de diseño
 Aquí se encuentran las fotos del **Mockup** y del **Documento de Diseño** (al igual que el archivo *figma*). 
