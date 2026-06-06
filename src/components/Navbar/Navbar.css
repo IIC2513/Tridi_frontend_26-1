@@ -10,7 +10,7 @@ header {
     position: sticky;
     top: 0px;
     background-color: black;
-    z-index: 10;
+    z-index: 11;
 }
 
 .containerNavbar {
@@ -156,6 +156,10 @@ header {
   background: transparent;
 }
 
+.profile {
+    color:#ce4e0e;
+}
+
 /* From Uiverse.io by Gaurav-WebDev  // https://uiverse.io/Gaurav-WebDev/tall-mayfly-60 */ 
 .buttonMerc {
   height: 54px;
@@ -210,6 +214,7 @@ header {
 }
 
 @media only screen and (min-width: 1110px) {
+
     .navbar {
         justify-content: space-between;
     }
