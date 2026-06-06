@@ -44,6 +44,21 @@ Este último será actualizado en cada entrega utilizando *screenshots* de la p�
 ### Captura Actual - *Docs Page*
 ![alt text](docs/design/image-6.png)
 
+### Captura Actual - *Model View*
+![alt text](docs/design/image-9.png)
+
+### Captura Actual - *View Cart*
+![alt text](docs/design/image-10.png)
+
+### Captura Actual - *Payment Page*
+![alt text](docs/design/image-11.png)
+
+### Captura Actual - *Pending Purchases Page*
+![alt text](docs/design/image-12.png)
+
+### Captura Actual - *Profile Page*
+![alt text](docs/design/image-13.png)
+
 
 ## Diagrama E/R
 A continuación tenemos lo que es actualmente nuestro **Diagrama Entidad-Relación**. 
