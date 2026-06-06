@@ -2,16 +2,28 @@ import { useEffect , useState} from "react";
 import { useNavigate } from "react-router-dom";
 import "./ModelInfo.css";
 import ModelViewer from "../ModelViewer/ModelViewer";
+import { useCart } from "../../context/CartContext";
 
 export default function ModelInfo({
   handleCloseModal,
   product,
-  handleAddCart
+  handleAddCart,
+  setFlash
 }) {
 
   const navigate = useNavigate();
+  const {addToCart} = useCart();
 
-  console.log(product);
+  const handleAdd = async () => {
+    handleCloseModal();
+    await addToCart(product.id);
+    setFlash({
+        type: "success",
+        title: "Added to cart",
+        message: `${product.name} added successfully.`
+    });
+  };
+
   return (
     <div className="ModalBlackArea" onClick={handleCloseModal}>
         <div className="containerModelFull" onClick={(e) => e.stopPropagation()}>
@@ -66,7 +78,7 @@ export default function ModelInfo({
                 <div className="cardInfoModel checkout">
                     <div className="footer">
                         <label className="price">${(product.price).toFixed(2)}</label>
-                        <button className="checkout-btn">[ Add to Cart ]</button>
+                        <button className="checkout-btn" onClick={handleAdd}>[ Add to Cart ]</button>
                     </div>
                 </div>
             </div>

@@ -44,25 +44,6 @@ export default function Navbar() {
     }
   };
 
-  const [cartItems, setCartItems] = useState([
-        {
-            id: 1,
-            name: "Shiba",
-            artist: "testuser",
-            price: 22.5,
-        },
-        {
-            id: 2,
-            name: "Dragon",
-            artist: "artist123",
-            price: 15,
-        },
-  ]);
-
-  function removeCart(id) {
-    setCartItems(current => current.filter(item => item.id !== id));
-  }
-
   return (
     <header>
       <section className="containerNavbar">
@@ -125,8 +106,6 @@ export default function Navbar() {
         </nav>
       </section>
         {OpenCart ? <CartView  
-            cartItems={cartItems}
-            removeCart={removeCart}
             handleCloseCart={handleCart}>
         </CartView> : null}
     </header>

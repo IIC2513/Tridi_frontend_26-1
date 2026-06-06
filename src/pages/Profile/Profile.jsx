@@ -11,23 +11,36 @@ import "./Profile.css";
 export default function Profile() {
     const { isAuthenticated, user, logout } = useAuth();
     const { username } = useParams();
+    const [loading, setLoading] = useState(true);
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const [profile, setProfile] = useState(null);
+    const navigate = useNavigate();
 
-    useEffect(() => { // Cambiar eventualmente
-        async function loadUser() {
-            const users = await getUsers();
-            const profileUser = users.find(
-                (u) => u.username === username
-            );
-            setProfile(profileUser);
+    useEffect(() => {
+        if (loading && !isAuthenticated) {
+            navigate("/login");
         }
+    }, [loading, isAuthenticated, navigate]);
 
+    useEffect(() => {
+        if (isAuthenticated){
+        async function loadUser() { // Cambiar eventualmente
+            try {
+                setLoading(true);
+                const users = await getUsers();
+                const profileUser =
+                    users.find((u) => u.username === username);
+
+                setProfile(profileUser);
+
+            } finally {
+                setLoading(false);
+            }
+        }
         loadUser();
+    }
     }, [username]);
-
-    if (!profile) return <p>User not found</p>;
 
     function equalProfile(){
         if (isAuthenticated && (username === user.username)){
@@ -40,6 +53,9 @@ export default function Profile() {
         <>
         <Navbar>
         </Navbar>
+        {loading ? (
+              <p className="userEmpty">Loading {username}'s Profile...</p>
+            ) : 
         <main className="profilePage">
             {equalProfile() ? 
                 <h1 className="profileTitle">My Profile</h1>: 
@@ -94,6 +110,7 @@ export default function Profile() {
                 </div>
             </div>
         </main>
+        }
         <Footer>
         </Footer>
         </>

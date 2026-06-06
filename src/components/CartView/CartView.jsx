@@ -1,16 +1,23 @@
 import { useEffect , useState} from "react";
 import { useNavigate } from "react-router-dom";
 import "./CartView.css";
+import { useCart } from "../../context/CartContext";
 
 export default function CartView({
-  cartItems,
   handleCloseCart,
   removeCart
 }) {
   
+  const {cartItems, subtotal, removeFromCart} = useCart();
   const navigate = useNavigate();
 
-  const total = cartItems.reduce((sum, item) => sum + item.price, 0);
+  function itemsTotal(){
+    if (cartItems.length > 0){
+        return true;
+    }
+    return false;
+  }
+
 
   return (
     <div className="cartBackground" onClick={handleCloseCart}>
@@ -32,7 +39,7 @@ export default function CartView({
 
                                     <button
                                         className="removeButton"
-                                        onClick={() => removeCart(item.id)}>
+                                        onClick={() => removeFromCart(item.id)}>
                                         ✕
                                     </button>
                                 </div>
@@ -41,14 +48,16 @@ export default function CartView({
                     </div>
                     <hr className="hrCart"/>
                     <div className="pricesContainer">
-                        <div className="totalContainer">TOTAL: ${total.toFixed(2)}</div>
+                        <div className="totalContainer">TOTAL: ${subtotal.toFixed(2)}</div>
                     </div>
                 </div>
             </div>
             <div className="cartFooter">
-                <div className="payButtonContainer">
-                    <button className="payButton">Confirm Purchase</button>
-                </div>
+                {itemsTotal() ? 
+                    <div className="payButtonContainer">
+                        <button className="payButton" onClick={() => navigate("/my-cards")}>Confirm Purchase</button>
+                    </div> : null
+                }
             </div>
         </div>
     </div>

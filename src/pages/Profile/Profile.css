@@ -121,6 +121,13 @@
   margin-bottom: 20px;
 }
 
+.userEmpty {
+  color: #808080;
+  text-align: center;
+  padding: 60px 0;
+  font-family: 'Inter', sans-serif;
+}
+
 /* From Uiverse.io by vinodjangid07 */ 
 
 .BtnEdit {

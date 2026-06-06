@@ -111,7 +111,8 @@ export default function Catalogue() {
       <Navbar />
       <ScrollProgressBar />
             {isOpen ? <ModelInfo  handleCloseModal={handleCloseModal} 
-                                    product={currentModel}>
+                                    product={currentModel}
+                                    setFlash={setFlash}>
                         </ModelInfo> : null}
       <main className="cataloguePage">
         <h1 className="catalogueTitle">Catalogue</h1>
