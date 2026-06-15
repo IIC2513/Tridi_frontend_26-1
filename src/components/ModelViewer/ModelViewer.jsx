@@ -1,7 +1,8 @@
 import { useRef, useEffect, useState } from "react";
+import { getModelBlob } from "../../cache/modelCache";
 import "./ModelViewer.css";
 
-export default function ModelViewer({ src, alt = "3D model" }) {
+export default function ModelViewer({ src, alt = "3D model", cacheKey = src }) {
   const containerRef = useRef(null);
   const elRef = useRef(null);
   const [shouldMount, setShouldMount] = useState(false);
@@ -33,25 +34,54 @@ export default function ModelViewer({ src, alt = "3D model" }) {
     const container = containerRef.current;
     if (!container) return;
 
-    const el = document.createElement("model-viewer");
-    el.setAttribute("src", src);
-    el.setAttribute("alt", alt);
-    el.setAttribute("auto-rotate", "");
-    el.setAttribute("camera-controls", "");
-    el.setAttribute("shadow-intensity", "1");
-    el.setAttribute("loading", "lazy");
-    el.style.width = "100%";
-    el.style.height = "100%";
-    el.style.display = "block";
+    let cancelled = false;
+    let objectUrl = null;
+    let el = null;
+    const controller = new AbortController();
 
-    container.appendChild(el);
-    elRef.current = el;
+    (async () => {
+      let resolvedSrc = src;
+
+      try {
+        const blob = await getModelBlob(src, cacheKey, {
+          signal: controller.signal,
+        });
+        if (cancelled) {
+          return;
+        }
+        objectUrl = URL.createObjectURL(blob);
+        resolvedSrc = objectUrl;
+      } catch (e) {
+        if (cancelled || e.name === "AbortError") return;
+        resolvedSrc = src;
+      }
+
+      if (cancelled) {
+        return;
+      }
+
+      el = document.createElement("model-viewer");
+      el.setAttribute("src", resolvedSrc);
+      el.setAttribute("alt", alt);
+      el.setAttribute("auto-rotate", "");
+      el.setAttribute("camera-controls", "");
+      el.setAttribute("shadow-intensity", "1");
+      el.style.width = "100%";
+      el.style.height = "100%";
+      el.style.display = "block";
+      container.appendChild(el);
+      elRef.current = el;
+    })();
 
     return () => {
-      if (container.contains(el)) container.removeChild(el);
+      cancelled = true;
+      controller.abort();
+      if (el && container.contains(el)) container.removeChild(el);
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
       elRef.current = null;
     };
-  }, [shouldMount, src, alt]);
+  }, [shouldMount, src, alt, cacheKey]);
+
 
   return <div ref={containerRef} className="modelViewer" />;
 }
