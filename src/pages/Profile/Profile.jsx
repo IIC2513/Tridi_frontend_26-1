@@ -7,7 +7,7 @@ import { useAuth } from "../../context/useAuth";
 import ProfileImage from "../../components/ProfileImage/ProfileImage";
 import StatusMessage from "../../components/StatusMessage/StatusMessage";
 import { getUsers } from "../../api/users";
-import UploadModelModal from "../../components/UploadModelModal/UploadModelModal";
+import PWAModelsSection from "../../PWA/PWAModelsSection";
 import "./Profile.css";
 
 export default function Profile() {
@@ -127,8 +127,36 @@ export default function Profile() {
                         onDismiss={() => setStatus(null)}
                     />
                 </div>
-            )}
-            <Footer></Footer>
+                <div className="ValueInfo">
+                    <h2 className="NameValue">
+                        Reputation:
+                    </h2>
+                    <p className="Value">
+                        {profile.reputation}
+                    </p>
+                    <h2 className="NameValue">
+                        Number of Purchases:
+                    </h2>
+                    <p className="Value">
+                        {profile.c_purchases}
+                    </p>
+                    <h2 className="NameValue">
+                        Number of Sales:
+                    </h2>
+                    <p className="Value">
+                        {profile.c_sales}
+                    </p>
+                </div>
+            </div>
+          {equalProfile() && (
+            <div className="profilePwaSection">
+              <PWAModelsSection showHeader={false} autoSync={true} />
+            </div>
+          )}
+        </main>
+        }
+        <Footer>
+        </Footer>
         </>
     );
 }
