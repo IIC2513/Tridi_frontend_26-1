@@ -1,5 +1,10 @@
 import client from "./client";
 
+function resolveUrl(route) {
+    if (!route) return null;
+    return /^https?:\/\//i.test(route) ? route : `${import.meta.env.VITE_API_URL}${route}`;
+}
+
 export function toModel(model) {
   const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -46,3 +51,21 @@ export async function getPurchasedItems(buyerId) {
   return (data.data ?? data).map(toModel);
 }
 
+export async function createModel({ name, description, price, tags = [] }) {
+    const { data } = await client.post("/models", { name, description, price, tags });
+    return data.data;
+}
+
+export async function uploadModelFile({ modelId, file }) {
+    const { data } = await client.put(
+        `/models/${modelId}/file?filename=${encodeURIComponent(file.name)}`,
+        file,
+        { headers: { "Content-Type": file.type || "application/octet-stream" } }
+    );
+    return toModel(data.data);
+}
+
+export async function createModelWithFile({ file, ...meta }) {
+    const model = await createModel(meta);
+    return uploadModelFile({ modelId: model.id, file });
+}
