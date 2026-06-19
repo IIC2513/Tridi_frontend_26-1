@@ -10,6 +10,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { CardProvider } from "./context/CardContext";
 import { PurchaseProvider } from "./context/PurchaseContext";
+import { StatusProvider } from "./context/StatusContext";
 import ConfirmCard from "./pages/ConfirmCard/ConfirmCard";
 import PurchasesPage from "./pages/PurchasesPage/PurchasesPage";
 import './App.css'
@@ -20,23 +21,25 @@ function App() {
     <Router>
       <div className="App">
         <AuthProvider>
-          <CartProvider>
-            <CardProvider>
-                <PurchaseProvider>
-                    <Routes>
-                        <Route path="/" element={<Landing />} />
-                        <Route path="/about-us" element={<AboutUs />} />
-                        <Route path="/catalogue" element={<Catalogue />} />
-                        <Route path="/docs-page" element={<DocsPage />} />
-                        <Route path="/login" element={<LoginPage />} />
-                        <Route path="/register" element={<RegisterPage />} />
-                        <Route path="/users/:username" element={<Profile />} />
-                        <Route path="/my-cards" element={<ConfirmCard />} />
-                        <Route path="/my-purchases" element={<PurchasesPage />} />
-                    </Routes>
-                </PurchaseProvider>
-            </CardProvider>
-          </CartProvider>
+          <StatusProvider>
+            <CartProvider>
+              <CardProvider>
+                  <PurchaseProvider>
+                      <Routes>
+                          <Route path="/" element={<Landing />} />
+                          <Route path="/about-us" element={<AboutUs />} />
+                          <Route path="/catalogue" element={<Catalogue />} />
+                          <Route path="/docs-page" element={<DocsPage />} />
+                          <Route path="/login" element={<LoginPage />} />
+                          <Route path="/register" element={<RegisterPage />} />
+                          <Route path="/users/:username" element={<Profile />} />
+                          <Route path="/my-cards" element={<ConfirmCard />} />
+                          <Route path="/my-purchases" element={<PurchasesPage />} />
+                      </Routes>
+                  </PurchaseProvider>
+              </CardProvider>
+            </CartProvider>
+          </StatusProvider>
         </AuthProvider>
       </div>
     </Router>

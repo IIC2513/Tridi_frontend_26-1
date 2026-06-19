@@ -8,6 +8,11 @@ const ALLOWED = [".glb", ".gltf"];
 const MAX_BYTES = 50 * 1024 * 1024;
 const PRICE_RE = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
 
+const TAG_GROUPS = [
+    { label: "Software", tags: ["Zbrush", "Blender"] },
+    { label: "Style", tags: ["Realistic", "Stylized", "Low-Poly"] },
+];
+
 function hasAllowedExt(name) {
     return ALLOWED.some((ext) => name.toLowerCase().endsWith(ext));
 }
@@ -16,7 +21,7 @@ export default function UploadModelModal({ open, onClose, onUploaded }) {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
-    const [tags, setTags] = useState("");
+    const [selectedTags, setSelectedTags] = useState([]);
     const [file, setFile] = useState(null);
     const [dragging, setDragging] = useState(false);
     const [submitting, setSubmitting] = useState(false);
@@ -27,7 +32,7 @@ export default function UploadModelModal({ open, onClose, onUploaded }) {
         setName("");
         setDescription("");
         setPrice("");
-        setTags("");
+        setSelectedTags([]);
         setFile(null);
         setSubmitting(false);
     }
@@ -71,6 +76,12 @@ export default function UploadModelModal({ open, onClose, onUploaded }) {
         }
     }
 
+    function toggleTag(tag) {
+        setSelectedTags((prev) =>
+            prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+        );
+    }
+
     async function handleSubmit() {
         if (!name.trim()) {
             setStatus({ variant: "warning", message: "Name is required." });
@@ -85,8 +96,6 @@ export default function UploadModelModal({ open, onClose, onUploaded }) {
             return;
         }
 
-        const tagList = tags.split(",").map((t) => t.trim()).filter(Boolean);
-
         setSubmitting(true);
         try {
             const created = await createModelWithFile({
@@ -94,7 +103,7 @@ export default function UploadModelModal({ open, onClose, onUploaded }) {
                 name: name.trim(),
                 description: description.trim() || null,
                 price: Number(price) || 0,
-                tags: tagList,
+                tags: selectedTags,
             });
             setStatus({ variant: "success", message: `"${created.name}" was uploaded.` });
             reset();
@@ -142,27 +151,38 @@ export default function UploadModelModal({ open, onClose, onUploaded }) {
                         rows={3}
                     />
 
-                    <div className="uploadModal__row">
-                        <div className="uploadModal__col">
-                            <label className="uploadModal__label">Price (USD)</label>
-                            <input
-                                className="uploadModal__input"
-                                type="text"
-                                inputMode="decimal"
-                                value={price}
-                                onChange={onPriceChange}
-                                placeholder="0"
-                            />
-                        </div>
-                        <div className="uploadModal__col">
-                            <label className="uploadModal__label">Tags</label>
-                            <input
-                                className="uploadModal__input"
-                                value={tags}
-                                onChange={(e) => setTags(e.target.value)}
-                                placeholder="vehicle, lowpoly"
-                            />
-                        </div>
+                    <label className="uploadModal__label">Price (USD)</label>
+                    <input
+                        className="uploadModal__input"
+                        type="text"
+                        inputMode="decimal"
+                        value={price}
+                        onChange={onPriceChange}
+                        placeholder="0"
+                    />
+
+                    <label className="uploadModal__label">Tags</label>
+                    <div className="uploadModal__tagGroups">
+                        {TAG_GROUPS.map((group) => (
+                            <div className="uploadModal__tagGroup" key={group.label}>
+                                <div className="uploadModal__tagList">
+                                    {group.tags.map((tag) => {
+                                        const active = selectedTags.includes(tag);
+                                        return (
+                                            <button
+                                                type="button"
+                                                key={tag}
+                                                className={`uploadModal__tag ${active ? "uploadModal__tag--active" : ""}`}
+                                                onClick={() => toggleTag(tag)}
+                                                aria-pressed={active}
+                                            >
+                                                {tag}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        ))}
                     </div>
 
                     <label className="uploadModal__label">Model file</label>
