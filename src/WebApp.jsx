@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import Profile from "./pages/Profile/Profile";
 import { AuthProvider } from "./context/AuthContext";
+import { StatusProvider } from "./context/StatusContext";
 import { CartProvider } from "./context/CartContext";
 import { CardProvider } from "./context/CardContext";
 import { PurchaseProvider } from "./context/PurchaseContext";
@@ -20,10 +21,11 @@ export default function WebApp() {
     <Router>
       <div className="App">
         <AuthProvider>
-          <CartProvider>
-            <CardProvider>
-                <PurchaseProvider>
-                    <Routes>
+          <StatusProvider>
+            <CartProvider>
+              <CardProvider>
+                  <PurchaseProvider>
+                      <Routes>
                         <Route path="/" element={<Landing />} />
                         <Route path="/about-us" element={<AboutUs />} />
                         <Route path="/catalogue" element={<Catalogue />} />
@@ -37,6 +39,7 @@ export default function WebApp() {
                 </PurchaseProvider>
             </CardProvider>
           </CartProvider>
+          </StatusProvider>
         </AuthProvider>
       </div>
     </Router>

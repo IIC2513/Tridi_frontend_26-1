@@ -21,7 +21,7 @@ export default defineConfig({
         id: '/pwa',
         name: 'Tridi Models',
         short_name: 'Tridi',
-        description: 'Visualiza y descarga tus modelos 3D.',
+        description: '3D models offline.',
         theme_color: '#000000',
         background_color: '#000000',
         display: 'standalone',
