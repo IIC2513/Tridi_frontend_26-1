@@ -45,6 +45,15 @@
   cursor: not-allowed;
 }
 
+.pwa-syncBar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 20px 16px;
+  max-width: 1400px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .pwa-loading,
 .pwa-empty {
   font-family: "Inter", sans-serif;

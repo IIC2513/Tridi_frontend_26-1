@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/useAuth";
 import ProfileImage from "../../components/ProfileImage/ProfileImage";
 import { getUsers } from "../../api/users";
+import PWAModelsSection from "../../PWA/PWAModelsSection";
 import "./Profile.css";
 
 export default function Profile() {
@@ -109,6 +110,11 @@ export default function Profile() {
                     </p>
                 </div>
             </div>
+          {equalProfile() && (
+            <div className="profilePwaSection">
+              <PWAModelsSection showHeader={false} />
+            </div>
+          )}
         </main>
         }
         <Footer>
