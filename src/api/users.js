@@ -19,6 +19,6 @@ export async function getUsers() {
 }
 
 export async function getUserByName(username) {
-  const { data } = await client.get(`/models/${username}`);
-  return toModel(data.data);
+  const { data } = await client.get(`/users/${username}`);
+  return toUser(data.data);
 }
