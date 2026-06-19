@@ -204,3 +204,10 @@
         font-size: 3rem;
     }
 }
+
+.profileToast {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 1100;
+}

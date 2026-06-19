@@ -5,6 +5,7 @@ import Footer from "../../components/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/useAuth";
 import ProfileImage from "../../components/ProfileImage/ProfileImage";
+import StatusMessage from "../../components/StatusMessage/StatusMessage";
 import { getUsers } from "../../api/users";
 import UploadModelModal from "../../components/UploadModelModal/UploadModelModal";
 import "./Profile.css";
@@ -14,6 +15,7 @@ export default function Profile() {
     const { username } = useParams();
     const [loading, setLoading] = useState(true);
     const [uploadOpen, setUploadOpen] = useState(false);
+    const [status, setStatus] = useState(null);
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const [profile, setProfile] = useState(null);
@@ -107,11 +109,24 @@ export default function Profile() {
                     <UploadModelModal
                         open={uploadOpen}
                         onClose={() => setUploadOpen(false)}
-                        onUploaded={() => {
+                        onUploaded={(created) => {
                             setUploadOpen(false);
+                            setStatus({
+                                variant: "success",
+                                message: `"${created.name}" was uploaded successfully.`,
+                            });
                         }}
                     />
                 </main>
+            )}
+            {status && (
+                <div className="profileToast">
+                    <StatusMessage
+                        variant={status.variant}
+                        message={status.message}
+                        onDismiss={() => setStatus(null)}
+                    />
+                </div>
             )}
             <Footer></Footer>
         </>

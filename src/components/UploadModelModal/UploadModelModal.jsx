@@ -6,6 +6,7 @@ import "./UploadModelModal.css";
 
 const ALLOWED = [".glb", ".gltf"];
 const MAX_BYTES = 50 * 1024 * 1024;
+const PRICE_RE = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
 
 function hasAllowedExt(name) {
     return ALLOWED.some((ext) => name.toLowerCase().endsWith(ext));
@@ -63,6 +64,13 @@ export default function UploadModelModal({ open, onClose, onUploaded }) {
         pickFile(e.dataTransfer.files?.[0]);
     }
 
+    function onPriceChange(e) {
+        const v = e.target.value;
+        if (v === "" || /^\d*\.?\d{0,2}$/.test(v)) {
+            setPrice(v);
+        }
+    }
+
     async function handleSubmit() {
         if (!name.trim()) {
             setStatus({ variant: "warning", message: "Name is required." });
@@ -70,6 +78,10 @@ export default function UploadModelModal({ open, onClose, onUploaded }) {
         }
         if (!file) {
             setStatus({ variant: "warning", message: "Please choose a model file." });
+            return;
+        }
+        if (price !== "" && !PRICE_RE.test(price)) {
+            setStatus({ variant: "warning", message: "Enter a valid price like 20 or 20.99." });
             return;
         }
 
@@ -135,11 +147,10 @@ export default function UploadModelModal({ open, onClose, onUploaded }) {
                             <label className="uploadModal__label">Price (USD)</label>
                             <input
                                 className="uploadModal__input"
-                                type="number"
-                                min="0"
-                                step="0.01"
+                                type="text"
+                                inputMode="decimal"
                                 value={price}
-                                onChange={(e) => setPrice(e.target.value)}
+                                onChange={onPriceChange}
                                 placeholder="0"
                             />
                         </div>
