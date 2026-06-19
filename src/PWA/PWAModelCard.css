@@ -98,6 +98,27 @@
   transition: all 0.25s ease;
 }
 
+.pwaEditBtn {
+  padding: 10px 14px;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  background: transparent;
+  color: #cccccc;
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.pwaEditBtn:hover {
+  border-color: #D96E3A;
+  color: #D96E3A;
+}
+
 .pwaDlBtn:hover:not(:disabled) {
   background: linear-gradient(144deg, #e97a4a, #c95a2e);
   box-shadow: 0 4px 16px rgba(217, 110, 58, 0.35);

@@ -5,9 +5,10 @@ import { getAllSavedProducts } from "./indexedDB";
 import PWAModelCard from "./PWAModelCard";
 import "./PWAHome.css";
 
-export default function PWAModelsSection({ search = "", showHeader = true }) {
+export default function PWAModelsSection({ search = "", showHeader = true, autoSync = false }) {
   const { isAuthenticated, user, loading: authLoading } = useAuth();
   const [models, setModels] = useState([]);
+  const [createdIds, setCreatedIds] = useState(new Set());
   const [syncing, setSyncing] = useState(false);
   const [online, setOnline] = useState(navigator.onLine);
   const [initialized, setInitialized] = useState(false);
@@ -33,9 +34,15 @@ export default function PWAModelsSection({ search = "", showHeader = true }) {
         getPurchasedItems(user.id),
       ]);
       const map = new Map();
-      for (const m of [...created, ...purchased]) {
+      const cIds = new Set();
+      for (const m of created) {
+        cIds.add(m.id);
+        map.set(m.id, m);
+      }
+      for (const m of purchased) {
         if (!map.has(m.id)) map.set(m.id, m);
       }
+      setCreatedIds(cIds);
       setModels(Array.from(map.values()));
     } catch (err) {
       console.error("PWA: Failed to fetch user models", err);
@@ -47,6 +54,7 @@ export default function PWAModelsSection({ search = "", showHeader = true }) {
   useEffect(() => {
     if (!isAuthenticated) {
       setModels([]);
+      setCreatedIds(new Set());
       setInitialized(false);
       didAutoSync.current = false;
       return;
@@ -54,12 +62,14 @@ export default function PWAModelsSection({ search = "", showHeader = true }) {
     getAllSavedProducts().then((saved) => {
       setModels(saved);
       setInitialized(true);
-      if (saved.length === 0 && navigator.onLine && !didAutoSync.current) {
+      if (autoSync && navigator.onLine) {
+        syncFromAPI();
+      } else if (saved.length === 0 && navigator.onLine && !didAutoSync.current) {
         didAutoSync.current = true;
         syncFromAPI();
       }
     });
-  }, [isAuthenticated, syncFromAPI]);
+  }, [isAuthenticated, syncFromAPI, autoSync]);
 
   const query = search.trim().toLowerCase();
   const filteredModels = useMemo(() => {
@@ -90,7 +100,7 @@ export default function PWAModelsSection({ search = "", showHeader = true }) {
       {showHeader && (
         <div className="pwa-header">
           <h1 className="pwa-title">Your Models</h1>
-          {online && (
+          {online && !autoSync && (
             <button className="pwa-syncBtn" onClick={syncFromAPI} disabled={syncing}>
               {syncing ? "Syncing…" : "Sync from internet"}
             </button>
@@ -98,7 +108,7 @@ export default function PWAModelsSection({ search = "", showHeader = true }) {
         </div>
       )}
 
-      {!showHeader && online && (
+      {!showHeader && online && !autoSync && (
         <div className="pwa-syncBar">
           <button className="pwa-syncBtn" onClick={syncFromAPI} disabled={syncing}>
             {syncing ? "Syncing…" : "Sync models"}
@@ -125,7 +135,7 @@ export default function PWAModelsSection({ search = "", showHeader = true }) {
       {hasFiltered && (
         <div className="pwa-models-grid">
           {filteredModels.map((m) => (
-            <PWAModelCard key={m.id} product={m} online={online} />
+            <PWAModelCard key={m.id} product={m} online={online} isCreator={createdIds.has(m.id)} />
           ))}
         </div>
       )}

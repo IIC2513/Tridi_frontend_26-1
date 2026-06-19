@@ -4,7 +4,7 @@ import { storeModel, isModelSaved, deleteModel, getModelEntry } from "./indexedD
 import client from "../api/client";
 import "./PWAModelCard.css";
 
-export default function PWAModelCard({ product, online = true }) {
+export default function PWAModelCard({ product, online = true, isCreator = false }) {
   const { id, name, artist, price, modelUrl, image } = product;
   const [status, setStatus] = useState("idle"); // idle | downloading | saved
   const [offlineBlobUrl, setOfflineBlobUrl] = useState(null);
@@ -83,6 +83,10 @@ export default function PWAModelCard({ product, online = true }) {
     URL.revokeObjectURL(blobUrl);
   };
 
+  const handleEdit = () => {
+    window.location.href = `/catalogue?edit=${id}`;
+  };
+
   const buttonLabel =
     status === "downloading" ? "Downloading…" :
     status === "saved"       ? "Saved ✓" :
@@ -104,6 +108,11 @@ export default function PWAModelCard({ product, online = true }) {
         </div>
       </div>
       <div className="pwaModelCardActions">
+        {isCreator && (
+          <button className="pwaEditBtn" onClick={handleEdit} title="Edit this model">
+            Edit
+          </button>
+        )}
         {glbFile ? (
           <>
             <button

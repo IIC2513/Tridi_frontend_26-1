@@ -112,7 +112,7 @@ export default function Profile() {
             </div>
           {equalProfile() && (
             <div className="profilePwaSection">
-              <PWAModelsSection showHeader={false} />
+              <PWAModelsSection showHeader={false} autoSync={true} />
             </div>
           )}
         </main>
