@@ -1,6 +1,6 @@
 import client from "./client";
 
-function toModel(model) {
+export function toModel(model) {
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const glbFile = model.files?.find(
@@ -26,11 +26,23 @@ function toModel(model) {
 
 export async function getModels() {
   const { data } = await client.get("/models");
-  return data.data.map(toModel);
+  return (data.data ?? data).map(toModel);
 }
 
 export async function getModelById(id) {
   const { data } = await client.get(`/models/${id}`);
-  return toModel(data.data);
+  return toModel(data.data ?? data);
+}
+
+/** Models created by this user */
+export async function getCreatedModels(ownerId) {
+  const { data } = await client.get(`/models/created/${ownerId}`);
+  return (data.data ?? data).map(toModel);
+}
+
+/** Models the user owns through purchases */
+export async function getPurchasedItems(buyerId) {
+  const { data } = await client.get(`/purchases/items/by/${buyerId}`);
+  return (data.data ?? data).map(toModel);
 }
 

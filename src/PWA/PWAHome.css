@@ -1,0 +1,96 @@
+.pwa-models-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 20px 40px;
+  box-sizing: border-box;
+}
+
+.pwa-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 20px 16px;
+  box-sizing: border-box;
+}
+
+.pwa-syncBtn {
+  padding: 10px 20px;
+  border: 2px solid #3a3a3a;
+  border-radius: 30px;
+  background: transparent;
+  color: #D96E3A;
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.pwa-syncBtn:hover:not(:disabled) {
+  border-color: #D96E3A;
+  background: rgba(217, 110, 58, 0.1);
+}
+
+.pwa-syncBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pwa-loading,
+.pwa-empty {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: #808080;
+  margin-top: 24px;
+}
+
+.pwa-offline-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 48px 20px;
+  text-align: center;
+}
+
+.pwa-offline-icon {
+  font-size: 48px;
+  opacity: 0.6;
+}
+
+.pwa-offline-title {
+  font-family: "Fraunces", serif;
+  font-size: 28px;
+  font-style: italic;
+  color: #ffffff;
+}
+
+.pwa-offline-text {
+  font-family: "Inter", sans-serif;
+  color: #808080;
+  max-width: 320px;
+}
+
+.pwa-offline-cached {
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  color: #D96E3A;
+  margin-top: 8px;
+}
+
+@media (max-width: 640px) {
+  .pwa-models-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    padding: 0 12px 32px;
+  }
+}
