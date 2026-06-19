@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/useAuth";
 import ProfileImage from "../../components/ProfileImage/ProfileImage";
 import StatusMessage from "../../components/StatusMessage/StatusMessage";
+import { getUserByName } from "../../api/users";
 import UploadModelModal from "../../components/UploadModelModal/UploadModelModal";
 import { getUsers } from "../../api/users";
 import PWAModelsSection from "../../PWA/PWAModelsSection";
@@ -33,9 +34,8 @@ export default function Profile() {
             async function loadUser() {
                 try {
                     setLoading(true);
-                    const users = await getUsers();
-                    const profileUser = users.find((u) => u.username === username);
-                    setProfile(profileUser);
+                    const user = await getUserByName(username);
+                    setProfile(user);
                 } finally {
                     setLoading(false);
                 }
