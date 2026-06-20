@@ -1,13 +1,30 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../context/useAuth";
+import { useStatus } from "../../context/StatusContext";
 import "./Navbar.css";
 import CartView from "../CartView/CartView";
 
 export default function Navbar() {
     const navigate = useNavigate();
     const { isAuthenticated, user, logout } = useAuth();
+    const { showStatus } = useStatus();
     const [OpenCart, setCartOpen] = useState(false);
+
+    useEffect(() => {
+        const onExpired = () => {
+            if (!isAuthenticated) return;
+            logout();
+            setCartOpen(false);
+            showStatus({
+                variant: "warning",
+                message: "Your session expired. Please log in again.",
+            });
+            navigate("/login");
+        };
+        window.addEventListener("auth:expired", onExpired);
+        return () => window.removeEventListener("auth:expired", onExpired);
+    }, [isAuthenticated, logout, showStatus, navigate]);
 
     const scrollLeft = () => {
         const scroll = document.querySelector(".navbarNav");
@@ -68,7 +85,7 @@ export default function Navbar() {
                             {isAuthenticated && user?.role === "admin" ? (
                                 <li>
                                     <button className="buttonNav" onClick={() => navigate("/admin")}>
-                                        <span className="box">Admin</span>
+                                        <span className="box">Admin Panel</span>
                                     </button>
                                 </li>
                             ) : null}

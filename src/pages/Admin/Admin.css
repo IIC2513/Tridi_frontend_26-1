@@ -1,106 +1,184 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+
 .adminPage {
-    max-width: 860px;
+    max-width: 1080px;
+    min-height: 70vh;
     margin: 0 auto;
-    padding: 2rem 1.25rem 4rem;
+    padding: 80px 32px 120px;
+    color: #f3f3f3;
 }
 
 .adminTitle {
-    font-size: 2rem;
-    color: #f3f3f3;
     margin: 0;
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(2.3rem, 5vw, 3.4rem);
+    letter-spacing: -0.02em;
+    color: #ffffff;
 }
 
 .hrAdmin {
     border: none;
-    border-top: 1px solid #2a2a2a;
-    margin: 1rem 0 1.5rem;
+    height: 1px;
+    margin: 20px 0 26px;
+    background: linear-gradient(90deg, #d96e3a 0, #1f1f1f 24%, #1f1f1f 100%);
 }
 
 .adminSubtitle {
-    font-size: 1.1rem;
-    color: #cf7e4f;
-    margin: 0 0 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin: 0 0 30px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-weight: 500;
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #bcb6a8;
+}
+
+.adminSubtitle::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #d96e3a;
 }
 
 .adminEmpty {
-    color: #8a8a8a;
+    padding: 44px 0;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: #6f6f6f;
 }
 
 .adminList {
     list-style: none;
-    padding: 0;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 18px;
 }
 
 .adminCard {
-    background: #141414;
-    border: 1px solid #262626;
-    border-radius: 12px;
-    padding: 1.25rem;
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 16px;
+    padding: 20px 20px 18px;
+    background: #0d0d0d;
+    border: 1px solid #1f1f1f;
+    border-radius: 16px;
+    transition: border-color 0.16s ease;
+}
+
+.adminCard:hover {
+    border-color: #d96e3a;
 }
 
 .adminCardUser {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
+    gap: 13px;
+}
+
+.adminAvatarSlot {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+}
+
+.adminAvatarSlot > * {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50%;
 }
 
 .adminAvatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+    display: block;
     object-fit: cover;
 }
 
 .adminCardMeta {
     display: flex;
     flex-direction: column;
+    gap: 6px;
+    min-width: 0;
 }
 
 .adminUsername {
-    color: #f3f3f3;
+    font-family: "Inter", system-ui, sans-serif;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.02rem;
+    color: #f5f5f5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .adminType {
-    color: #8a8a8a;
-    font-size: 0.8rem;
+    align-self: flex-start;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    color: #bcb6a8;
+    padding: 3px 9px;
+    background: #141414;
+    border: 1px solid #2a2a2a;
+    border-radius: 999px;
 }
 
 .adminComment {
     margin: 0;
+    padding: 13px 15px;
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.55;
     color: #c9c9c9;
-    font-size: 0.95rem;
-    line-height: 1.45;
-    background: #0d0d0d;
-    border: 1px solid #242424;
-    border-radius: 8px;
-    padding: 0.75rem 0.9rem;
+    background: #0a0a0a;
+    border: 1px solid #171717;
+    border-radius: 10px;
 }
 
 .adminComment em {
     color: #6f6f6f;
+    font-style: italic;
 }
 
 .adminActions {
     display: flex;
+    gap: 10px;
     justify-content: flex-end;
-    gap: 0.75rem;
+    margin-top: auto;
 }
 
 .adminToast {
     position: fixed;
-    bottom: 1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
+    right: 24px;
+    bottom: 24px;
+    z-index: 50;
+}
+
+@media (max-width: 600px) {
+    .adminPage {
+        padding: 56px 18px 90px;
+    }
+
+    .adminList {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .adminCard {
+        transition: none;
+    }
 }
