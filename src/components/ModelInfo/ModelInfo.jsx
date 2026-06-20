@@ -6,6 +6,7 @@ import ModelViewer from "../ModelViewer/ModelViewer";
 import { useCart } from "../../context/CartContext";
 import { AuthContext } from "../../context/AuthContext";
 import { updateModel } from "../../api/models";
+import CommentsSection from "../CommentsSection/CommentsSection";
 
 const formatSize = (bytes) => {
     if (bytes === null || bytes === undefined || isNaN(bytes)) return "—";
@@ -143,6 +144,8 @@ export default function ModelInfo({ handleCloseModal, product, onUpdated }) {
                                     ))}
                                 </ul>
                             </section>
+
+                            <CommentsSection modelId={current.id} />
                         </div>
 
                         <div className="mi-foot">
