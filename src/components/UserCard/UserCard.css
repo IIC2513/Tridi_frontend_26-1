@@ -1,0 +1,90 @@
+.userCard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px 20px 18px;
+    background: #0d0d0d;
+    border: 1px solid #1f1f1f;
+    border-radius: 16px;
+    transition: border-color 0.16s ease, transform 0.16s ease;
+}
+.userCard:hover {
+    border-color: #d96e3a;
+}
+.userCardClickable {
+    cursor: pointer;
+}
+.userCardClickable:hover {
+    transform: translateY(-2px);
+}
+.userCardClickable:focus-visible {
+    outline: none;
+    border-color: #d96e3a;
+    box-shadow: 0 0 0 2px rgba(217, 110, 58, 0.35);
+}
+.userCardUser {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+.userCardAvatarSlot {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+}
+.userCardAvatarSlot > * {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50%;
+}
+.userCardAvatar {
+    display: block;
+    object-fit: cover;
+}
+.userCardMeta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+.userCardUsername {
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.02rem;
+    color: #f5f5f5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.userCardBadge {
+    align-self: flex-start;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #bcb6a8;
+    padding: 3px 9px;
+    background: #141414;
+    border: 1px solid #2a2a2a;
+    border-radius: 999px;
+}
+.userCardActions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+    .userCard {
+        transition: none;
+    }
+    .userCardClickable:hover {
+        transform: none;
+    }
+}

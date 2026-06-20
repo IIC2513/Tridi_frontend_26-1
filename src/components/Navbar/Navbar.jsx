@@ -71,7 +71,7 @@ export default function Navbar() {
                                 </button>
                             </li>
                             <li>
-                                <button className="buttonNav" onClick={() => navigate("/")}>
+                                <button className="buttonNav" onClick={() => navigate("/artists")}>
                                     <span className="box">Artists</span>
                                 </button>
                             </li>

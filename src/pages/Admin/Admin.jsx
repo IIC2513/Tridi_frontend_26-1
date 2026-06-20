@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import Button from "../../components/Button/Button";
-import ProfileImage from "../../components/ProfileImage/ProfileImage";
+import UserCard from "../../components/UserCard/UserCard";
 import StatusMessage from "../../components/StatusMessage/StatusMessage";
 import { useAuth } from "../../context/useAuth";
 import { getPendingRequests, updateRequestStatus } from "../../api/requests";
@@ -12,7 +12,6 @@ import "./Admin.css";
 export default function Admin() {
     const { isAuthenticated, user } = useAuth();
     const navigate = useNavigate();
-    const apiUrl = import.meta.env.VITE_API_URL;
 
     const [loading, setLoading] = useState(true);
     const [requests, setRequests] = useState([]);
@@ -76,52 +75,37 @@ export default function Admin() {
                 ) : (
                     <ul className="adminList">
                         {requests.map((r) => (
-                            <li key={r.id} className="adminCard">
-                                <div className="adminCardUser">
-                                    <div className="adminAvatarSlot">
-                                        {r.user?.image ? (
-                                            <img
-                                                src={`${apiUrl}${r.user.image}`}
-                                                alt={r.user.username}
-                                                className="adminAvatar"
-                                            />
-                                        ) : (
-                                            <ProfileImage name={r.user?.username || "?"} />
-                                        )}
-                                    </div>
-                                    <div className="adminCardMeta">
-                                        <span className="adminUsername">
-                                            {r.user?.username || "Unknown"}
-                                        </span>
-                                        <span className="adminType">{r.type}</span>
-                                    </div>
-                                </div>
-
+                            <UserCard
+                                key={r.id}
+                                user={r.user}
+                                badge={r.type}
+                                actions={
+                                    <>
+                                        <Button
+                                            onClick={() => resolve(r.id, "rejected")}
+                                            disabled={actingId === r.id}
+                                            bgColor="#1a1a1a"
+                                            hoverBgColor="#242424"
+                                            textColor="#cfcfcf"
+                                        >
+                                            Reject
+                                        </Button>
+                                        <Button
+                                            onClick={() => resolve(r.id, "approved")}
+                                            disabled={actingId === r.id}
+                                            bgColor="#d96e3a"
+                                            hoverBgColor="#c25f2f"
+                                            textColor="#ffffff"
+                                        >
+                                            {actingId === r.id ? "Working..." : "Approve"}
+                                        </Button>
+                                    </>
+                                }
+                            >
                                 <p className="adminComment">
                                     {r.content ? r.content : <em>No message provided.</em>}
                                 </p>
-
-                                <div className="adminActions">
-                                    <Button
-                                        onClick={() => resolve(r.id, "rejected")}
-                                        disabled={actingId === r.id}
-                                        bgColor="#1a1a1a"
-                                        hoverBgColor="#242424"
-                                        textColor="#cfcfcf"
-                                    >
-                                        Reject
-                                    </Button>
-                                    <Button
-                                        onClick={() => resolve(r.id, "approved")}
-                                        disabled={actingId === r.id}
-                                        bgColor="#d96e3a"
-                                        hoverBgColor="#c25f2f"
-                                        textColor="#ffffff"
-                                    >
-                                        {actingId === r.id ? "Working..." : "Approve"}
-                                    </Button>
-                                </div>
-                            </li>
+                            </UserCard>
                         ))}
                     </ul>
                 )}

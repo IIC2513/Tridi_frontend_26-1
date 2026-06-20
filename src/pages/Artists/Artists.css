@@ -1,0 +1,75 @@
+.artistsPage {
+    max-width: 1080px;
+    min-height: 70vh;
+    margin: 0 auto;
+    padding: 80px 32px 120px;
+    color: #f3f3f3;
+}
+.artistsTitle {
+    margin: 0;
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(2.3rem, 5vw, 3.4rem);
+    letter-spacing: -0.02em;
+    color: #ffffff;
+}
+.hrArtists {
+    border: none;
+    height: 1px;
+    margin: 20px 0 26px;
+    background: linear-gradient(90deg, #d96e3a 0, #1f1f1f 24%, #1f1f1f 100%);
+}
+.artistsSubtitle {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin: 0 0 30px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-weight: 500;
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #bcb6a8;
+}
+.artistsSubtitle::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #d96e3a;
+}
+.artistsEmpty {
+    padding: 44px 0;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: #6f6f6f;
+}
+.artistsList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 18px;
+}
+.artistStats {
+    display: flex;
+    gap: 18px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: #9a9a9a;
+}
+.artistStat strong {
+    color: #f0f0f0;
+    font-weight: 600;
+}
+@media (max-width: 600px) {
+    .artistsPage {
+        padding: 56px 18px 90px;
+    }
+    .artistsList {
+        grid-template-columns: 1fr;
+    }
+}
