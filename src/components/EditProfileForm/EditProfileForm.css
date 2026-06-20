@@ -1,0 +1,245 @@
+.ModalBlackArea {
+    width: 100%;
+    height: 100%;
+    background: #00000088;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+}
+
+/* From Uiverse.io by Spacious74 */ 
+/* From Uiverse.io by anest_6070 */ 
+/* MAIN CARD */
+.main-container .card-box {
+  display: flex;
+  flex-wrap: wrap; /* Allows stacking */
+  width: 100%;
+  max-width: 1000px;
+  background: #000;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid #1a1a1a;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+/* RIGHT SIDE */
+.main-container .right-panel {
+  flex: 1 1 340px;
+  background: black;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.main-container .form-wrapper {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.main-container .form-header-group {
+  margin-bottom: 32px;
+}
+
+/* Fake H2 */
+.main-container .form-title {
+  color: #D96E3A;
+  font-size: 50px;
+  font-style: italic;
+  font-weight: 600;
+  font-family: 'Fraunces', serif;
+  margin-bottom: 8px;
+}
+
+.main-container .form-desc {
+  color: #888;
+  font-size: 14px;
+}
+
+.main-container .divider-text {
+  display: flex;
+  align-items: center;
+  color: #666;
+  font-size: 13px;
+  margin-bottom: 24px;
+  flex: 1;
+  height: 1px;
+  background: #333;
+}
+
+/* INPUTS */
+.main-container .row-inputs {
+  display: flex;
+  gap: 12px;
+}
+
+.main-container .input-box {
+  margin-bottom: 20px;
+  width: 100%;
+  min-width: 0; /* Prevents overflow in flexbox */
+}
+
+.main-container .input-label {
+  display: block;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.main-container .input-field {
+  width: 100%;
+  background: #121212;
+  border: 1px solid #1a1a1a;
+  padding: 14px;
+  border-radius: 8px;
+  color: white;
+  outline: none;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.main-container .input-field:focus {
+  background: #1a1a1a;
+  border-color: #444;
+}
+
+.main-container .password-wrapper {
+  position: relative;
+}
+
+.main-container .eye-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.main-container .hint-text {
+  color: #666;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 24px;
+}
+
+.main-container .submit-button {
+  width: 100%;
+  background: #D96E3A;
+  color: black;
+  border: none;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  
+}
+
+.main-container .submit-button:hover {
+  background: #df8457;
+}
+
+.main-container .submit-button p {
+  margin-left: 5px;
+}
+
+.file-upload-form {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.file-upload-label input {
+  display: none;
+}
+.file-upload-label svg {
+  fill: rgb(82, 82, 82);
+  height: 32px;
+  margin-bottom: 8px;
+}
+.file-upload-label {
+  cursor: pointer;
+  background-color: #ddd;
+  border-radius: 40px;
+  border: 2px dashed rgb(82, 82, 82);  width: 100%;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0px 0px 200px -50px rgba(0, 0, 0, 0.719);
+}
+.file-upload-design {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.file-upload-design p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.browse-button {
+  background-color: rgb(82, 82, 82);
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  color: white;
+  transition: all 0.3s;
+}
+.browse-button:hover {
+  background-color: rgb(14, 14, 14);
+}
+
+.main-container .input-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.main-container .input-label-row .input-label {
+  margin-bottom: 0; /* el margin ya lo maneja el contenedor flex */
+}
+
+.main-container .clear-button {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0 4px;
+  transition: color 0.2s;
+}
+
+.main-container .clear-button:hover {
+  color: #D96E3A;
+}
+
+@media (max-width: 768px) {
+  .main-container .card-box {
+    max-width: 500px;
+  }
+
+  .main-container .right-panel {
+    padding: 24px;
+  }
+
+  .main-container .form-title {
+    font-size: 36px;
+  }
+}
