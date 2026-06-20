@@ -58,7 +58,7 @@ export default function EditProfileForm({
                 <div className="form-header-group">
                   <div className="form-title">Edit Profile</div>
                   <div className="form-desc">
-                    Leave blank if you want to keep the current value.
+                    Click outside the form to close it.
                   </div>
                 </div>
 
@@ -135,7 +135,7 @@ export default function EditProfileForm({
                   </div>
                 </div>
 
-                <div className="hint-text">Must be at least 8 characters.</div>
+                <div className="hint-text">Leave blank if you want to keep the current value.</div>
 
                 <button type="submit" className="submit-button">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
