@@ -9,13 +9,17 @@ import StatusMessage from "../../components/StatusMessage/StatusMessage";
 import { getUserByName, putUserChanges } from "../../api/users";
 import UploadModelModal from "../../components/UploadModelModal/UploadModelModal";
 import EditProfileForm from "../../components/EditProfileForm/EditProfileForm";
+import RequestSellerModal from "../../components/RequestSellerModal/RequestSellerModal";
+import { getUsers } from "../../api/users";
+import PWAModelsSection from "../../PWA/PWAModelsSection";
 import "./Profile.css";
 
 export default function Profile() {
-    const { isAuthenticated, user, logout } = useAuth();
+    const { isAuthenticated, user } = useAuth();
     const { username } = useParams();
     const [loading, setLoading] = useState(true);
     const [uploadOpen, setUploadOpen] = useState(false);
+    const [requestOpen, setRequestOpen] = useState(false);
     const [status, setStatus] = useState(null);
     const apiUrl = import.meta.env.VITE_API_URL;
     const [isOpenEdit, setIsOpenEdit] = useState(false);
@@ -42,7 +46,7 @@ export default function Profile() {
             }
             loadUser();
         }
-    }, [username]);
+    }, [username, isAuthenticated]);
 
     const handleShowMessage = (variant, message) => {
         setStatus({ variant, message });
@@ -53,10 +57,7 @@ export default function Profile() {
     };
 
     function equalProfile() {
-        if (isAuthenticated && username === user.username) {
-            return true;
-        }
-        return false;
+        return isAuthenticated && username === user.username;
     }
 
     function canUpload() {
@@ -140,7 +141,13 @@ export default function Profile() {
                                 <button className="BtnUpload" onClick={() => setUploadOpen(true)}>
                                     Upload Model
                                 </button>
-                            ) : null}
+                            ) : (
+                                equalProfile() && (
+                                    <button className="BtnUpload" onClick={() => setRequestOpen(true)}>
+                                        Request to be a Seller
+                                    </button>
+                                )
+                            )}
                         </div>
                         <div className="ValueInfo">
                             <h2 className="NameValue">Reputation:</h2>
@@ -162,6 +169,22 @@ export default function Profile() {
                             });
                         }}
                     />
+                    <RequestSellerModal
+                        open={requestOpen}
+                        onClose={() => setRequestOpen(false)}
+                        onSubmitted={() => {
+                            setRequestOpen(false);
+                            setStatus({
+                                variant: "success",
+                                message: "Your seller request was sent. An admin will review it.",
+                            });
+                        }}
+                    />
+                    {equalProfile() && (
+                        <div className="profilePwaSection">
+                            <PWAModelsSection showHeader={false} autoSync={true} />
+                        </div>
+                    )}
                 </main>
             )}
             {status && (
@@ -173,7 +196,7 @@ export default function Profile() {
                     />
                 </div>
             )}
-            <Footer></Footer>
+            <Footer />
         </>
     );
 }

@@ -1,0 +1,206 @@
+.pwaModelCard {
+  width: 100%;
+  max-width: 260px;
+  background-color: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+              border-color 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.pwaModelCard:hover {
+  transform: translateY(-4px);
+  border-color: #D96E3A;
+  box-shadow: 0 12px 32px rgba(217, 110, 58, 0.18);
+}
+
+.pwaModelCard .productImageWrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: #0f0f0f;
+  overflow: hidden;
+  position: relative;
+}
+
+.pwaModelCard .productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pwaModelCard .productData {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.pwaModelCard .productInfo {
+  padding: 14px 16px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.pwaModelCard .productName {
+  font-family: 'Fraunces', serif;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pwaModelCard .productArtist {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: #a0a0a0;
+  margin: 0;
+}
+
+.pwaModelCard .productPrice {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #D96E3A;
+  margin-top: 8px;
+}
+
+.pwaModelCardActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px 16px;
+}
+
+.pwaDlBtn {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: #ffffff;
+  background: linear-gradient(144deg, #D96E3A, #b84a1e);
+  transition: all 0.25s ease;
+}
+
+.pwaEditBtn {
+  padding: 10px 14px;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  background: transparent;
+  color: #cccccc;
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.pwaEditBtn:hover {
+  border-color: #D96E3A;
+  color: #D96E3A;
+}
+
+.pwaDlBtn:hover:not(:disabled) {
+  background: linear-gradient(144deg, #e97a4a, #c95a2e);
+  box-shadow: 0 4px 16px rgba(217, 110, 58, 0.35);
+}
+
+.pwaDlBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pwaDlBtn.saved {
+  background: #2a4a2a;
+  color: #8fdf8f;
+}
+
+.pwaExportBtn {
+  padding: 10px 14px;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  background: transparent;
+  color: #cccccc;
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pwaExportBtn:hover {
+  border-color: #D96E3A;
+  color: #D96E3A;
+}
+
+.pwaDeleteBtn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  background: transparent;
+  color: #888;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pwaDeleteBtn:hover {
+  border-color: #e04040;
+  color: #e04040;
+}
+
+.pwaNoGlb {
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
+  color: #666;
+  padding: 8px 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .pwaModelCard {
+    max-width: 360px;
+  }
+  .pwaModelCard .productInfo {
+    padding: 16px 18px 10px;
+  }
+  .pwaModelCard .productName {
+    font-size: 1.25rem;
+  }
+}
+
+@media only screen and (min-width: 1110px) {
+  .pwaModelCard {
+    max-width: 340px;
+  }
+  .pwaModelCard .productInfo {
+    padding: 18px 20px 12px;
+  }
+  .pwaModelCard .productName {
+    font-size: 1.25rem;
+  }
+}
