@@ -85,6 +85,10 @@ export function CartProvider({ children }) {
     }
   }
 
+  function clearCart() {
+    setCartItems([]);
+  }
+
   useEffect(() => {
     refreshCart();
   }, [isAuthenticated]);
@@ -98,6 +102,7 @@ export function CartProvider({ children }) {
         refreshCart,
         addToCart,
         removeFromCart,
+        clearCart,
       }}
     >
       {children}
