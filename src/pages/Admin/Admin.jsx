@@ -1,0 +1,140 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
+import Button from "../../components/Button/Button";
+import ProfileImage from "../../components/ProfileImage/ProfileImage";
+import StatusMessage from "../../components/StatusMessage/StatusMessage";
+import { useAuth } from "../../context/useAuth";
+import { getPendingRequests, updateRequestStatus } from "../../api/requests";
+import "./Admin.css";
+
+export default function Admin() {
+    const { isAuthenticated, user } = useAuth();
+    const navigate = useNavigate();
+    const apiUrl = import.meta.env.VITE_API_URL;
+
+    const [loading, setLoading] = useState(true);
+    const [requests, setRequests] = useState([]);
+    const [actingId, setActingId] = useState(null);
+    const [status, setStatus] = useState(null);
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigate("/login");
+        } else if (user?.role !== "admin") {
+            navigate("/");
+        }
+    }, [isAuthenticated, user, navigate]);
+
+    useEffect(() => {
+        if (isAuthenticated && user?.role === "admin") {
+            async function load() {
+                try {
+                    setLoading(true);
+                    const pending = await getPendingRequests();
+                    setRequests(pending);
+                } finally {
+                    setLoading(false);
+                }
+            }
+            load();
+        }
+    }, [isAuthenticated, user]);
+
+    async function resolve(requestId, nextStatus) {
+        setActingId(requestId);
+        try {
+            await updateRequestStatus(requestId, nextStatus);
+            setRequests((prev) => prev.filter((r) => r.id !== requestId));
+            setStatus({
+                variant: "success",
+                message: `Request ${nextStatus === "approved" ? "approved" : "rejected"}.`,
+            });
+        } catch (e) {
+            setStatus({
+                variant: "error",
+                message: e?.response?.data?.error || e.message || "Action failed.",
+            });
+        } finally {
+            setActingId(null);
+        }
+    }
+
+    return (
+        <>
+            <Navbar />
+            <main className="adminPage">
+                <h1 className="adminTitle">Admin Panel</h1>
+                <hr className="hrAdmin" />
+                <h2 className="adminSubtitle">Pending seller applications</h2>
+
+                {loading ? (
+                    <p className="adminEmpty">Loading requests...</p>
+                ) : requests.length === 0 ? (
+                    <p className="adminEmpty">No pending requests.</p>
+                ) : (
+                    <ul className="adminList">
+                        {requests.map((r) => (
+                            <li key={r.id} className="adminCard">
+                                <div className="adminCardUser">
+                                    {r.user?.image ? (
+                                        <img
+                                            src={`${apiUrl}${r.user.image}`}
+                                            alt={r.user.username}
+                                            className="adminAvatar"
+                                        />
+                                    ) : (
+                                        <ProfileImage name={r.user?.username || "?"} />
+                                    )}
+                                    <div className="adminCardMeta">
+                                        <span className="adminUsername">
+                                            {r.user?.username || "Unknown"}
+                                        </span>
+                                        <span className="adminType">{r.type}</span>
+                                    </div>
+                                </div>
+
+                                <p className="adminComment">
+                                    {r.content ? r.content : <em>No message provided.</em>}
+                                </p>
+
+                                <div className="adminActions">
+                                    <Button
+                                        onClick={() => resolve(r.id, "rejected")}
+                                        disabled={actingId === r.id}
+                                        bgColor="#2a2a2a"
+                                        hoverBgColor="#3a2020"
+                                        textColor="#e06464"
+                                    >
+                                        Reject
+                                    </Button>
+                                    <Button
+                                        onClick={() => resolve(r.id, "approved")}
+                                        disabled={actingId === r.id}
+                                        bgColor="#1f7a4d"
+                                        hoverBgColor="#176038"
+                                        textColor="#f3f3f3"
+                                    >
+                                        {actingId === r.id ? "Working..." : "Approve"}
+                                    </Button>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </main>
+
+            {status && (
+                <div className="adminToast">
+                    <StatusMessage
+                        variant={status.variant}
+                        message={status.message}
+                        onDismiss={() => setStatus(null)}
+                    />
+                </div>
+            )}
+            <Footer />
+        </>
+    );
+}
