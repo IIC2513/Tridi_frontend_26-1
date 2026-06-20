@@ -8,6 +8,7 @@ import ProfileImage from "../../components/ProfileImage/ProfileImage";
 import StatusMessage from "../../components/StatusMessage/StatusMessage";
 import { getUserByName } from "../../api/users";
 import UploadModelModal from "../../components/UploadModelModal/UploadModelModal";
+import RequestSellerModal from "../../components/RequestSellerModal/RequestSellerModal";
 import { getUsers } from "../../api/users";
 import PWAModelsSection from "../../PWA/PWAModelsSection";
 import "./Profile.css";
@@ -17,6 +18,7 @@ export default function Profile() {
     const { username } = useParams();
     const [loading, setLoading] = useState(true);
     const [uploadOpen, setUploadOpen] = useState(false);
+    const [requestOpen, setRequestOpen] = useState(false);
     const [status, setStatus] = useState(null);
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -90,10 +92,16 @@ export default function Profile() {
                                     </svg>
                                 </button>
                             )}
-                            {canUpload() && (
+                            {canUpload() ? (
                                 <button className="BtnUpload" onClick={() => setUploadOpen(true)}>
                                     Upload Model
                                 </button>
+                            ) : (
+                                equalProfile() && (
+                                    <button className="BtnUpload" onClick={() => setRequestOpen(true)}>
+                                        Request to be a Seller
+                                    </button>
+                                )
                             )}
                         </div>
                         <div className="ValueInfo">
@@ -113,6 +121,17 @@ export default function Profile() {
                             setStatus({
                                 variant: "success",
                                 message: `"${created.name}" was uploaded successfully.`,
+                            });
+                        }}
+                    />
+                    <RequestSellerModal
+                        open={requestOpen}
+                        onClose={() => setRequestOpen(false)}
+                        onSubmitted={() => {
+                            setRequestOpen(false);
+                            setStatus({
+                                variant: "success",
+                                message: "Your seller request was sent. An admin will review it.",
                             });
                         }}
                     />

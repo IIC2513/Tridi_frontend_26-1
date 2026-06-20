@@ -112,17 +112,6 @@ export default function LoginPage() {
             <Button type="submit" variant="primary" disabled={submitting}>
               {submitting ? "LOGGING IN…" : "LOGIN"}
             </Button>
-            <div className="alt-signin">
-              <p>Sign in alternatives:</p>
-              <div className="site-icons">
-                <ProviderButton
-                  provider="TWITCH"
-                  onClick={handleTwitchLogin}
-                  disabled={submitting || twitchLoading}
-                  loading={twitchLoading}
-                />
-              </div>
-            </div>
             <Link to="/register" className="authSwitchLink">
               Create an account
             </Link>
