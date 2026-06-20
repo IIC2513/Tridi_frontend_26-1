@@ -4,14 +4,20 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import UserCard from "../../components/UserCard/UserCard";
 import { getUsers } from "../../api/users";
+import { useAuth } from "../../context/useAuth";
 import "./Artists.css";
 
 export default function Artists() {
     const navigate = useNavigate();
+    const { isAuthenticated, loading: authLoading } = useAuth();
     const [loading, setLoading] = useState(true);
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
+        if (!isAuthenticated) {
+            setLoading(false);
+            return;
+        }
         async function load() {
             try {
                 setLoading(true);
@@ -22,7 +28,7 @@ export default function Artists() {
             }
         }
         load();
-    }, []);
+    }, [isAuthenticated]);
 
     return (
         <>
@@ -32,8 +38,10 @@ export default function Artists() {
                 <hr className="hrArtists" />
                 <h2 className="artistsSubtitle">Sellers on Tridi</h2>
 
-                {loading ? (
+                {loading || authLoading ? (
                     <p className="artistsEmpty">Loading artists...</p>
+                ) : !isAuthenticated ? (
+                    <p className="artistsEmpty">Login to see the artists.</p>
                 ) : artists.length === 0 ? (
                     <p className="artistsEmpty">No artists yet.</p>
                 ) : (
