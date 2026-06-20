@@ -11,6 +11,7 @@ export function toModel(model) {
         id: model.id,
         name: model.name,
         artist: model.creator?.username ?? "Unknown",
+        creatorId: model.creatorId ?? model.creator?.id ?? null,
         price: Number(model.price),
         tags: model.tags ?? [],
         description: model.description,
@@ -43,6 +44,11 @@ export async function getPurchasedItems(buyerId) {
 export async function createModel({ name, description, price, tags = [] }) {
     const { data } = await client.post("/models", { name, description, price, tags });
     return data.data;
+}
+
+export async function updateModel(id, { name, price, description }) {
+    const { data } = await client.patch(`/models/${id}`, { name, price, description });
+    return toModel(data.data ?? data);
 }
 
 export async function uploadModelFile({ modelId, file }) {

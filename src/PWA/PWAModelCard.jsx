@@ -1,14 +1,20 @@
 import { useState, useEffect } from "react";
 import ModelViewer from "../components/ModelViewer/ModelViewer";
+import ModelInfo from "../components/ModelInfo/ModelInfo";
 import { storeModel, isModelSaved, deleteModel, getModelEntry } from "./indexedDB";
 import client from "../api/client";
 import "./PWAModelCard.css";
 
 export default function PWAModelCard({ product, online = true, isCreator = false }) {
-  const { id, name, artist, price, modelUrl, image } = product;
-  const [status, setStatus] = useState("idle"); // idle | downloading | saved
+  const [current, setCurrent] = useState(product);
+  const { id, name, artist, modelUrl, image } = current;
+  const [status, setStatus] = useState("idle");
   const [offlineBlobUrl, setOfflineBlobUrl] = useState(null);
-  const glbFile = product.files?.find((f) => f.extension === "glb");
+  const [infoOpen, setInfoOpen] = useState(false);
+  const glbFile = current.files?.find((f) => f.extension === "glb");
+
+  const inPwa = window.location.pathname.startsWith("/pwa");
+  const showEdit = isCreator && online && !inPwa;
 
   useEffect(() => {
     isModelSaved(id).then((saved) => {
@@ -16,7 +22,6 @@ export default function PWAModelCard({ product, online = true, isCreator = false
     });
   }, [id]);
 
-  // When offline, load the blob from IndexedDB for the ModelViewer
   useEffect(() => {
     if (online) {
       setOfflineBlobUrl(null);
@@ -31,7 +36,10 @@ export default function PWAModelCard({ product, online = true, isCreator = false
     });
   }, [online, id]);
 
-  // Cleanup blob URLs on unmount
+  useEffect(() => {
+    if (!showEdit) setInfoOpen(false);
+  }, [showEdit]);
+
   useEffect(() => {
     return () => {
       if (offlineBlobUrl) URL.revokeObjectURL(offlineBlobUrl);
@@ -46,11 +54,10 @@ export default function PWAModelCard({ product, online = true, isCreator = false
       const url = `${apiUrl}${glbFile.route}`;
       const { data: blob } = await client.get(url, { responseType: "blob" });
 
-      await storeModel(id, blob, product);
+      await storeModel(id, blob, current);
 
       setStatus("saved");
 
-      // Trigger browser save dialog
       const blobUrl = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = blobUrl;
@@ -83,10 +90,6 @@ export default function PWAModelCard({ product, online = true, isCreator = false
     URL.revokeObjectURL(blobUrl);
   };
 
-  const handleEdit = () => {
-    window.location.href = `/catalogue?edit=${id}`;
-  };
-
   const buttonLabel =
     status === "downloading" ? "Downloading…" :
     status === "saved"       ? "Saved ✓" :
@@ -108,8 +111,8 @@ export default function PWAModelCard({ product, online = true, isCreator = false
         </div>
       </div>
       <div className="pwaModelCardActions">
-        {isCreator && (
-          <button className="pwaEditBtn" onClick={handleEdit} title="Edit this model">
+        {showEdit && (
+          <button className="pwaEditBtn" onClick={() => setInfoOpen(true)} title="Edit this model">
             Edit
           </button>
         )}
@@ -137,6 +140,14 @@ export default function PWAModelCard({ product, online = true, isCreator = false
           <span className="pwaNoGlb">No .glb available</span>
         )}
       </div>
+
+      {infoOpen && showEdit && (
+        <ModelInfo
+          product={current}
+          handleCloseModal={() => setInfoOpen(false)}
+          onUpdated={(updated) => setCurrent(updated)}
+        />
+      )}
     </article>
   );
 }
