@@ -33,6 +33,15 @@ export function AuthProvider({ children }) {
     setUser(user);
   };
 
+  const updateUser = (updatedFields) => {
+    setUser(prev => {
+        if (!prev) return prev;
+        const next = { ...prev, ...updatedFields };
+        localStorage.setItem(USER_KEY, JSON.stringify(next));
+        return next;
+    });
+  };
+
   const login = async ({ email, password }) => {
     const { token, user } = await loginRequest(email, password);
     if (!token || !user) throw new Error("Credenciales inválidas.");
@@ -73,6 +82,7 @@ export function AuthProvider({ children }) {
     loginWithProvider,
     completeProviderLogin,
     logout,
+    updateUser
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

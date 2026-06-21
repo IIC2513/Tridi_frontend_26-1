@@ -15,7 +15,7 @@ import PWAModelsSection from "../../PWA/PWAModelsSection";
 import "./Profile.css";
 
 export default function Profile() {
-    const { isAuthenticated, user } = useAuth();
+    const { isAuthenticated, user, updateUser  } = useAuth();
     const { username } = useParams();
     const [loading, setLoading] = useState(true);
     const [uploadOpen, setUploadOpen] = useState(false);
@@ -38,8 +38,11 @@ export default function Profile() {
             async function loadUser() {
                 try {
                     setLoading(true);
-                    const user = await getUserByName(username);
-                    setProfile(user);
+                    const fetchedUser = await getUserByName(username);
+                    setProfile(fetchedUser);
+                } catch (error) {
+                    setProfile(null);
+                    handleShowMessage("error", "The profile could not be loaded.");
                 } finally {
                     setLoading(false);
                 }
@@ -66,11 +69,17 @@ export default function Profile() {
 
     const handleSubmit = async (payload) => {
         try {
-            console.log(profile);
             const updatedUser = await putUserChanges(profile.id, payload);
             setProfile(updatedUser);
             handleCloseEdit();
             handleShowMessage("success", "Profile updated successfully.");
+
+            if (payload.username && payload.username !== username) {
+                updateUser({ username: updatedUser.username });
+                navigate(`/users/${updatedUser.username}`, { replace: true });
+            } else if (payload.image) {
+                updateUser({ image: updatedUser.image });
+            }
         } catch (error) {
             handleShowMessage(
                 "error",
@@ -105,6 +114,8 @@ export default function Profile() {
             ) : null}
             {loading ? (
                 <p className="userEmpty">Loading {username}'s Profile...</p>
+            ) : !profile ? (
+                <p className="userEmpty">User not found.</p>
             ) : (
                 <main className="profilePage">
                     {equalProfile() ? (
