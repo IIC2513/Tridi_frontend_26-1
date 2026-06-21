@@ -59,6 +59,12 @@ Este último será actualizado en cada entrega utilizando *screenshots* de la p�
 ### Captura Actual - *Profile Page*
 ![alt text](docs/design/image-13.png)
 
+### Captura Actual - *Admin Panel*
+![alt text](docs/design/image-14.png)
+
+### Captura Actual - *Artists Page*
+![alt text](docs/design/image-15.png) 
+
 
 ## Diagrama E/R
 A continuación tenemos lo que es actualmente nuestro **Diagrama Entidad-Relación**. 
@@ -91,3 +97,11 @@ A continuación tenemos lo que es actualmente nuestro **Diagrama Entidad-Relaci�
 - **Botón Navbar by *Cornerstone-04* > Navbar:** https://uiverse.io/Cornerstone-04/bitter-impala-54 / Animación utilizada en los botones principales del Navbar. Modificado para igual calzar con la estética de la página.
 - **Animación by *Gaurav-WebDev* > Navbar:** https://uiverse.io/Gaurav-WebDev/tall-mayfly-60 / Elemento utilizado para el botón de *'Cart'* en el Navbar, y así diferenciarlo con el resto de botones de navegación.
 - **Card Animado by *Centered101* > CardAboutUs:** https://uiverse.io/Centered101/cowardly-newt-15 / Elemento utilizado para animar las tarjetas de presentación personal en el componente *CardAboutUs* utilizados y vistos en la página de */about-us*.
+
+
+## Playwright
+Para correr los tests se debe usar `pnpm test`, **Advertencia:** El último test demora entre uno a dos minutos ya que se 
+usa el backend online.
+
+## IndexedDB
+Se agregó IndexedDB para guardar los modelos 3D, se guardan los archivos localmente al visitar la página más de una vez.

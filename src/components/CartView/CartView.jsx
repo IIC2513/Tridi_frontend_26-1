@@ -9,7 +9,9 @@ export default function CartView({ handleCloseCart, removeCart }) {
     const [closing, setClosing] = useState(false);
 
     function requestClose() {
-        if (closing) return;
+        if (closing) { 
+            return;
+        }
         setClosing(true);
         setTimeout(() => handleCloseCart(), 240);
     }

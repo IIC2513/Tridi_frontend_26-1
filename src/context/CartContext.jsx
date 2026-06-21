@@ -75,13 +75,25 @@ export function CartProvider({ children }) {
   }
 
   async function removeFromCart(cartItemId) {
+    const key = `remove-${cartItemId}`;
+    if (pendingRef.current.has(key)) return;
+    pendingRef.current.add(key);
+    const previous = cartItems;
+    setCartItems((prev) => prev.filter((i) => String(i.id) !== String(cartItemId)));
     try {
       await client.delete(`/cart/items/${cartItemId}`);
-      setCartItems((prev) => prev.filter((i) => i.id !== cartItemId));
       showStatus({ variant: "success", message: "Removed from cart." });
     } catch (error) {
-      console.error(error);
-      showStatus({ variant: "error", message: "Couldn't remove item." });
+      const status = error?.response?.status;
+      if (status === 404 || status === 422) {
+        showStatus({ variant: "success", message: "Removed from cart." });
+      } else {
+        console.error(error);
+        setCartItems(previous);
+        showStatus({ variant: "error", message: "Couldn't remove item." });
+      }
+    } finally {
+      pendingRef.current.delete(key);
     }
   }
 

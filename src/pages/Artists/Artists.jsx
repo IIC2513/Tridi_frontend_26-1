@@ -57,9 +57,6 @@ export default function Artists() {
                                     <span className="artistStat">
                                         <strong>{a.c_sales ?? 0}</strong> sales
                                     </span>
-                                    <span className="artistStat">
-                                        <strong>{a.reputation ?? 0}</strong> rep
-                                    </span>
                                 </div>
                             </UserCard>
                         ))}
