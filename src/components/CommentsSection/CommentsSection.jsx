@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import {
     getComments,
@@ -67,6 +68,7 @@ function CommentItem({ comment, currentUserId, isAdmin, onUpdate, onDelete }) {
     const [editing, setEditing] = useState(false);
     const [editContent, setEditContent] = useState(comment.content);
     const [busy, setBusy] = useState(false);
+    const profilePath = comment.user?.username ? `/users/${comment.user.username}` : null;
 
     const commentUserId = comment.userId ?? comment.user?.id;
     const isOwner = currentUserId != null && String(currentUserId) === String(commentUserId);
@@ -102,12 +104,26 @@ function CommentItem({ comment, currentUserId, isAdmin, onUpdate, onDelete }) {
 
     return (
         <div className="cs-item">
-            <Avatar user={comment.user} />
+            {profilePath ? (
+                <Link className="cs-user-link" to={profilePath} aria-label={`View ${comment.user.username}'s profile`}>
+                    <Avatar user={comment.user} />
+                </Link>
+            ) : (
+                <Avatar user={comment.user} />
+            )}
             <div className="cs-body">
                 <div className="cs-header">
-                    <span className="cs-username">
-                        {comment.user?.username ?? "Unknown"}
-                    </span>
+                    {profilePath ? (
+                        <Link className="cs-user-link" to={profilePath}>
+                            <span className="cs-username">
+                                {comment.user?.username ?? "Unknown"}
+                            </span>
+                        </Link>
+                    ) : (
+                        <span className="cs-username">
+                            {comment.user?.username ?? "Unknown"}
+                        </span>
+                    )}
                     <span className="cs-date">{formatDate(comment.createdAt)}</span>
                 </div>
 
