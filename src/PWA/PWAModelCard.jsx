@@ -51,7 +51,9 @@ export default function PWAModelCard({ product, online = true, isCreator = false
     setStatus("downloading");
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
-      const url = `${apiUrl}${glbFile.route}`;
+      const url = glbFile.route.startsWith("http")
+        ? glbFile.route
+        : `${apiUrl}${glbFile.route}`;
       const { data: blob } = await client.get(url, { responseType: "blob" });
 
       await storeModel(id, blob, current);
