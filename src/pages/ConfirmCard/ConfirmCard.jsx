@@ -15,7 +15,7 @@ export default function ConfirmCard() {
     const { cards, loading } = useCards();
     const navigate = useNavigate();
     const { createPurchase } = usePurchases();
-    const { clearCart } = useCart();
+    const { clearCart, cartItems } = useCart();
 
     useEffect(() => {
         if (!isAuthenticated) {
