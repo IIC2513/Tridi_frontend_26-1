@@ -39,7 +39,7 @@ export default function PWANavbar({ searchValue = "", onSearchChange }) {
             <ul className="navList">
               <li>
                 <button className="buttonNav" onClick={() => navigate("/")}>
-                  <span className="box">Mis Modelos</span>
+                  <span className="box">My Models</span>
                 </button>
               </li>
             </ul>
