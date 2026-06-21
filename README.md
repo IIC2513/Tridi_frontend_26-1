@@ -118,6 +118,7 @@ usa el backend online. También se debe crear un archivo `.env` de la siguiente 
 ```
 VITE_API_URL=https://api.tridi.jessica.cl/
 ```
+También se puede usar una `VITE_API_URL` con localhost pero se debe levantar un servidor de backend con la misma dirección.
 
 ## IndexedDB
 Se agregó IndexedDB para guardar los modelos 3D, se guardan los archivos localmente al visitar la página más de una vez.
