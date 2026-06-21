@@ -18,7 +18,7 @@ const formatSize = (bytes) => {
 
 export default function ModelInfo({ handleCloseModal, product, onUpdated }) {
     const navigate = useNavigate();
-    const { addToCart } = useCart();
+    const { addToCart, cartItems } = useCart();
     const { user } = useContext(AuthContext);
     const { isOwned } = useOwnedModels();
 
@@ -41,6 +41,7 @@ export default function ModelInfo({ handleCloseModal, product, onUpdated }) {
 
     const canManage = !!user && (user.role === "admin" || user.id === current.creatorId);
     const alreadyOwned = isOwned(current.id);
+    const inCart = cartItems.some((item) => item.modelId === current.id);
 
     const handleAdd = async () => {
         handleCloseModal();
@@ -158,6 +159,8 @@ export default function ModelInfo({ handleCloseModal, product, onUpdated }) {
                             </div>
                             {alreadyOwned ? (
                                 <span className="mi-owned-badge">Already owned</span>
+                            ) : inCart ? (
+                                <span className="mi-in-cart-badge">Already in cart</span>
                             ) : (
                                 <button className="mi-cta" onClick={handleAdd}>
                                     Add to cart <span aria-hidden="true">→</span>
