@@ -5,6 +5,7 @@ import "./ModelInfo.css";
 import ModelViewer from "../ModelViewer/ModelViewer";
 import { useCart } from "../../context/CartContext";
 import { AuthContext } from "../../context/AuthContext";
+import { useOwnedModels } from "../../context/OwnedModelsContext";
 import { updateModel } from "../../api/models";
 import CommentsSection from "../CommentsSection/CommentsSection";
 
@@ -19,6 +20,7 @@ export default function ModelInfo({ handleCloseModal, product, onUpdated }) {
     const navigate = useNavigate();
     const { addToCart } = useCart();
     const { user } = useContext(AuthContext);
+    const { isOwned } = useOwnedModels();
 
     const [current, setCurrent] = useState(product);
     const [editing, setEditing] = useState(false);
@@ -38,6 +40,7 @@ export default function ModelInfo({ handleCloseModal, product, onUpdated }) {
     }, []);
 
     const canManage = !!user && (user.role === "admin" || user.id === current.creatorId);
+    const alreadyOwned = isOwned(current.id);
 
     const handleAdd = async () => {
         handleCloseModal();
@@ -153,9 +156,13 @@ export default function ModelInfo({ handleCloseModal, product, onUpdated }) {
                                 <span className="mi-price-cur">$</span>
                                 <span className="mi-price-val">{current.price.toFixed(2)}</span>
                             </div>
-                            <button className="mi-cta" onClick={handleAdd}>
-                                Add to cart <span aria-hidden="true">→</span>
-                            </button>
+                            {alreadyOwned ? (
+                                <span className="mi-owned-badge">Already owned</span>
+                            ) : (
+                                <button className="mi-cta" onClick={handleAdd}>
+                                    Add to cart <span aria-hidden="true">→</span>
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
