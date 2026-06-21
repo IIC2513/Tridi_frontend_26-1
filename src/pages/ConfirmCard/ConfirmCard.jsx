@@ -1,8 +1,7 @@
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import Navbar from "../../components/Navbar/Navbar";
-import { useParams } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/useAuth";
 import { useCards } from "../../context/CardContext";
 import CardView from "../../components/CardView/CardView";
@@ -16,7 +15,7 @@ export default function ConfirmCard() {
     const { cards, loading } = useCards();
     const navigate = useNavigate();
     const { createPurchase } = usePurchases();
-    const { refreshCart, cartItems } = useCart();
+    const { clearCart, cartItems } = useCart();
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -26,9 +25,13 @@ export default function ConfirmCard() {
 
     async function handleSelectCard() {
         try {
+            if (cartItems.length == 0) {
+                navigate("/my-purchases");
+                return;
+            }
             await createPurchase();
+            clearCart();
             navigate("/my-purchases");
-
         } catch (error) {
             console.error(error);
         }
@@ -37,17 +40,19 @@ export default function ConfirmCard() {
     if (loading) {
         return (
             <>
-              <Navbar />
+                <Navbar />
                 <p className="userEmpty">Loading Payment Cards...</p>
-              <Footer />
+                <Footer />
             </>
         );
     }
+
     return (
         <>
             <Navbar />
             <main className="profilePage">
                 <h1 className="profileTitle">Payment Method</h1>
+                <h2 className="profileSubtitle">To proceed with your pending purchases, please select your payment method.</h2>
                 <hr className="hrProfile" />
                 <div className="profileInfo">
                     <CardForm />

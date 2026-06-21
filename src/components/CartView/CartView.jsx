@@ -62,7 +62,7 @@ export default function CartView({ handleCloseCart, removeCart }) {
                 <div className="cartFooter">
                     {itemsTotal() ? (
                         <div className="payButtonContainer">
-                            <button className="payButton" onClick={() => navigate("/my-cards")}>Confirm Purchase</button>
+                            <button className="payButton" onClick={() => navigate("/my-cards")}>Go to checkout</button>
                         </div>
                     ) : null}
                 </div>
