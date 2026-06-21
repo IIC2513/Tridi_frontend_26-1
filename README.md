@@ -109,7 +109,10 @@ A continuación tenemos lo que es actualmente nuestro **Diagrama Entidad-Relaci�
 
 ## Playwright
 Para correr los tests se debe usar `pnpm test`, **Advertencia:** El último test demora entre uno a dos minutos ya que se 
-usa el backend online.
+usa el backend online. También se debe crear un archivo `.env` de la siguiente forma:
+```
+VITE_API_URL=https://api.tridi.jessica.cl/
+```
 
 ## IndexedDB
 Se agregó IndexedDB para guardar los modelos 3D, se guardan los archivos localmente al visitar la página más de una vez.
