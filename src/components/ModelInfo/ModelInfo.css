@@ -239,6 +239,34 @@
 .mi-cta span { transition: transform .2s ease; }
 .mi-cta:hover span { transform: translateX(3px); }
 
+.mi-owned-badge {
+    display: inline-flex;
+    align-items: center;
+    height: 44px;
+    padding: 0 22px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(255, 255, 255, .04);
+    color: #BCB6A8;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.mi-in-cart-badge {
+    display: inline-flex;
+    align-items: center;
+    height: 44px;
+    padding: 0 22px;
+    border-radius: 999px;
+    border: 1px solid rgba(217, 110, 58, .3);
+    background: rgba(217, 110, 58, .08);
+    color: #E0A982;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 .mi-edit-card {
     --mi-line: rgba(255, 255, 255, .08);
     --mi-accent: #D96E3A;

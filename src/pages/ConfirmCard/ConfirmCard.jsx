@@ -1,8 +1,7 @@
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import Navbar from "../../components/Navbar/Navbar";
-import { useParams } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/useAuth";
 import { useCards } from "../../context/CardContext";
 import CardView from "../../components/CardView/CardView";
@@ -16,7 +15,7 @@ export default function ConfirmCard() {
     const { cards, loading } = useCards();
     const navigate = useNavigate();
     const { createPurchase } = usePurchases();
-    const { refreshCart, cartItems } = useCart();
+    const { clearCart } = useCart();
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -31,8 +30,8 @@ export default function ConfirmCard() {
                 return;
             }
             await createPurchase();
+            clearCart();
             navigate("/my-purchases");
-
         } catch (error) {
             console.error(error);
         }
@@ -41,12 +40,13 @@ export default function ConfirmCard() {
     if (loading) {
         return (
             <>
-              <Navbar />
+                <Navbar />
                 <p className="userEmpty">Loading Payment Cards...</p>
-              <Footer />
+                <Footer />
             </>
         );
     }
+
     return (
         <>
             <Navbar />
