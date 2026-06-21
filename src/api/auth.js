@@ -2,6 +2,7 @@ import client from "./client";
 
 function toUser(u) {
   return {
+    id:       u.id ?? u._id ?? null,
     email:    u.email,
     username: u.username,
     image:    u.image ?? null,

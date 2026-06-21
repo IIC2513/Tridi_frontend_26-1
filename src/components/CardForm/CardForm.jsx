@@ -3,6 +3,20 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import { useCards } from "../../context/CardContext";
 import "./CardForm.css";
 
+function formatCardNumber(value) {
+  const digits = value.replace(/\D/g, "").slice(0, 19);
+  const groups = digits.match(/.{1,4}/g);
+  return groups ? groups.join(" ") : "";
+}
+
+function formatExpiry(value) {
+  const digits = value.replace(/\D/g, "").slice(0, 4);
+  if (digits.length >= 3) {
+    return digits.slice(0, 2) + "/" + digits.slice(2);
+  }
+  return digits;
+}
+
 export default function CardForm() {
   
   const { addCard } = useCards();
@@ -12,7 +26,8 @@ export default function CardForm() {
   const [error, setError] = useState(null);
 
   function validateCard(number, expiry, cvv) {
-    if (!/^\d{13,19}$/.test(number)) {
+    const rawNumber = number.replace(/\s/g, "");
+    if (!/^\d{13,19}$/.test(rawNumber)) {
         return "Card number must contain between 13 and 19 digits.";
     }
     if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) {
@@ -50,7 +65,8 @@ export default function CardForm() {
     }
 
     const [month, year] = expDate.split("/");
-    await addCard({number, expMonth: Number(month), expYear: Number(`20${year}`)});
+    const rawNumber = number.replace(/\s/g, "");
+    await addCard({number: rawNumber, expMonth: Number(month), expYear: Number(`20${year}`)});
     setNumber("");
     setExpDate("");
     setCvv("");
@@ -73,7 +89,7 @@ export default function CardForm() {
                     type="text"
                     placeholder="0000 0000 0000 0000"
                     value={number}
-                    onChange={(e) => setNumber(e.target.value)}
+                    onChange={(e) => setNumber(formatCardNumber(e.target.value))}
                 />
                 </div>
                 <div className="input_container">
@@ -86,7 +102,7 @@ export default function CardForm() {
                             type="text"
                             placeholder="08/30"
                             value={expDate}
-                            onChange={(e) => setExpDate(e.target.value)}
+                            onChange={(e) => setExpDate(formatExpiry(e.target.value))}
                         />
                         <input
                             className="input_field"

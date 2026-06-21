@@ -2,6 +2,7 @@ import client from "./client";
 
 function toUser(u) {
   return {
+    id: u.id,
     email:    u.email,
     username: u.username,
     image:    u.image ?? null,
@@ -19,6 +20,11 @@ export async function getUsers() {
 }
 
 export async function getUserByName(username) {
-  const { data } = await client.get(`/models/${username}`);
-  return toModel(data.data);
+  const { data } = await client.get(`/users/${username}`);
+  return toUser(data.data);
+}
+
+export async function putUserChanges(id, payload) {
+  const { data } = await client.put(`/users/${id}`, payload);
+  return toUser(data.data);
 }

@@ -1,0 +1,64 @@
+.reqModalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.reqModal {
+    width: 100%;
+    max-width: 460px;
+    background: #141414;
+    border: 1px solid #2a2a2a;
+    border-radius: 14px;
+    padding: 1.75rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.reqModalTitle {
+    margin: 0 0 0.5rem;
+    font-size: 1.4rem;
+    color: #f3f3f3;
+}
+
+.reqModalText {
+    margin: 0 0 1rem;
+    font-size: 0.9rem;
+    color: #9a9a9a;
+    line-height: 1.4;
+}
+
+.reqModalTextarea {
+    width: 100%;
+    box-sizing: border-box;
+    background: #0d0d0d;
+    border: 1px solid #2f2f2f;
+    border-radius: 8px;
+    color: #ededed;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.reqModalTextarea:focus {
+    outline: none;
+    border-color: #cf7e4f;
+}
+
+.reqModalError {
+    margin: 0.75rem 0 0;
+    color: #e06464;
+    font-size: 0.85rem;
+}
+
+.reqModalActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}

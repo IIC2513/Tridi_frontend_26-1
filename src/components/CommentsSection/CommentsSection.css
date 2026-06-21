@@ -1,0 +1,216 @@
+.cs-section {
+    padding: 18px 24px 24px;
+    border-top: 1px solid var(--mi-line);
+}
+
+.cs-eyebrow {
+    display: block;
+    margin-bottom: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--mi-muted);
+}
+
+.cs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.cs-item {
+    display: flex;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, .05);
+}
+
+.cs-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.cs-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid var(--mi-line);
+    flex-shrink: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--mi-muted);
+    text-transform: uppercase;
+}
+
+.cs-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cs-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.cs-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.cs-username {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--mi-text);
+}
+
+.cs-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--mi-faint);
+    flex-shrink: 0;
+}
+
+.cs-content {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #C4C0B4;
+    word-break: break-word;
+}
+
+.cs-content-editing {
+    width: 100%;
+    min-height: 60px;
+    padding: 8px 10px;
+    background: #050505;
+    border: 1px solid var(--mi-line);
+    border-radius: 8px;
+    color: var(--mi-text);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    resize: vertical;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color .2s ease;
+}
+
+.cs-content-editing:focus {
+    border-color: var(--mi-accent);
+}
+
+.cs-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.cs-btn {
+    height: 26px;
+    padding: 0 10px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, .12);
+    color: var(--mi-muted);
+    transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.cs-btn:hover {
+    background: rgba(255, 255, 255, .06);
+    border-color: rgba(255, 255, 255, .2);
+    color: var(--mi-text);
+}
+
+.cs-btn-danger:hover {
+    border-color: #C74B4B;
+    color: #E06060;
+}
+
+.cs-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.cs-input {
+    width: 100%;
+    min-height: 64px;
+    padding: 10px 12px;
+    background: #050505;
+    border: 1px solid var(--mi-line);
+    border-radius: 10px;
+    color: var(--mi-text);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    resize: vertical;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color .2s ease;
+}
+
+.cs-input:focus {
+    border-color: var(--mi-accent);
+}
+
+.cs-input::placeholder {
+    color: #555;
+}
+
+.cs-submit {
+    align-self: flex-end;
+    height: 32px;
+    padding: 0 16px;
+    border: none;
+    border-radius: 8px;
+    background: var(--mi-accent);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color .2s ease;
+}
+
+.cs-submit:hover:not(:disabled) {
+    background: var(--mi-accent-press);
+}
+
+.cs-submit:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.cs-empty {
+    font-size: 13px;
+    color: var(--mi-faint);
+    font-style: italic;
+}
+
+.cs-login-hint {
+    font-size: 12px;
+    color: var(--mi-faint);
+    margin-top: 12px;
+    text-align: center;
+}
+
+.cs-error {
+    font-size: 12px;
+    color: #E06060;
+}
