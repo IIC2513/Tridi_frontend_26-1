@@ -25,6 +25,10 @@ export default function ConfirmCard() {
 
     async function handleSelectCard() {
         try {
+            if (cartItems.length == 0) {
+                navigate("/my-purchases");
+                return;
+            }
             await createPurchase();
             clearCart();
             navigate("/my-purchases");
@@ -48,6 +52,7 @@ export default function ConfirmCard() {
             <Navbar />
             <main className="profilePage">
                 <h1 className="profileTitle">Payment Method</h1>
+                <h2 className="profileSubtitle">To proceed with your pending purchases, please select your payment method.</h2>
                 <hr className="hrProfile" />
                 <div className="profileInfo">
                     <CardForm />

@@ -46,12 +46,21 @@ export default function PurchasesPage() {
         );
     }
 
+    const handleCards = () => {
+        navigate('/my-cards');
+    };
+
     return (
         <>
             <Navbar />
             <main className="profilePage">
                 <h1 className="profileTitle">Pending Purchases</h1>
                 <hr className="hrProfile" />
+                <div className="pendingHeaderActions">
+                    <button onClick={handleCards} className="BtnUpload">
+                        Change Payment Method
+                    </button>
+                </div>
                 <div className="profileInfo">
                     {pendingPurchases.length === 0 ? (
                         <p>No pending purchases.</p>

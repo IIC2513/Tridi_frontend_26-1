@@ -205,9 +205,15 @@
         width: 120px;
         height: 120px;
     }
-
+  
     .profileTitle {
         font-size: 3rem;
         text-align: center;
     }
+}
+
+.pendingHeaderActions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 24px;
 }

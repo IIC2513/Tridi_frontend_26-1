@@ -103,6 +103,7 @@
     color: #ffffff;
     padding: 10px 0;
     font-family: 'Inter', sans-serif;
+    font-style: italic;
     font-size: 1rem;
     outline: none;
     box-sizing: border-box;
@@ -133,6 +134,26 @@
     box-shadow: 5px 5px 0px #943505;
     transition-duration: .3s;
 }
+
+.BtnPayment {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 180px;
+    height: 40px;
+    border: none;
+    padding: 0px 20px;
+    background-color: #D96E3A;
+    color: white;
+    font-weight: 500;
+    font-family: 'Fraunces', serif;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px #943505;
+    transition-duration: .3s;
+}
+
 .svgEdit {
     width: 13px;
     position: absolute;
@@ -156,6 +177,23 @@
     transition-duration: .3s;
     box-shadow: 2px 2px 0px #943505;
 }
+
+.BtnPayment:hover {
+    color: transparent;
+}
+.BtnPayment:hover svg {
+    right: 43%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    transition-duration: .3s;
+}
+.BtnPayment:active {
+    transform: translate(3px, 3px);
+    transition-duration: .3s;
+    box-shadow: 2px 2px 0px #943505;
+}
+
 .BtnUpload {
     font-family: "Jetbrains Mono", monospace;
     text-transform: uppercase;
@@ -190,6 +228,15 @@
       flex-direction: column;
       align-items: center;
     }
+
+    .profile-buttons {
+        flex-direction: column;
+    }
+
+    .profile-buttons .BtnEdit {
+        width: 100%;
+    }
+    
 }
 
 .profilePwaSection {
@@ -216,4 +263,10 @@
     bottom: 1.5rem;
     right: 1.5rem;
     z-index: 1100;
+}
+
+.profile-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
