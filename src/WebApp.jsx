@@ -13,6 +13,7 @@ import { StatusProvider } from "./context/StatusContext";
 import { CartProvider } from "./context/CartContext";
 import { CardProvider } from "./context/CardContext";
 import { PurchaseProvider } from "./context/PurchaseContext";
+import { OwnedModelsProvider } from "./context/OwnedModelsContext";
 import ConfirmCard from "./pages/ConfirmCard/ConfirmCard";
 import PurchasesPage from "./pages/PurchasesPage/PurchasesPage";
 import "./App.css";
@@ -26,6 +27,7 @@ export default function WebApp() {
                         <CartProvider>
                             <CardProvider>
                                 <PurchaseProvider>
+                                    <OwnedModelsProvider>
                                     <Routes>
                                         <Route path="/" element={<Landing />} />
                                         <Route path="/about-us" element={<AboutUs />} />
@@ -39,6 +41,7 @@ export default function WebApp() {
                                         <Route path="/my-cards" element={<ConfirmCard />} />
                                         <Route path="/my-purchases" element={<PurchasesPage />} />
                                     </Routes>
+                                    </OwnedModelsProvider>
                                 </PurchaseProvider>
                             </CardProvider>
                         </CartProvider>
