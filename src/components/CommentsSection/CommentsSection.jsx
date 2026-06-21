@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useMemo } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import {
     getComments,
@@ -7,6 +7,12 @@ import {
     deleteComment,
 } from "../../api/comments";
 import "./CommentsSection.css";
+
+function resolveImage(image) {
+    if (!image) return null;
+    if (/^https?:\/\//i.test(image)) return image;
+    return `${import.meta.env.VITE_API_URL}${image}`;
+}
 
 function formatDate(iso) {
     if (!iso) return "";
@@ -22,10 +28,11 @@ function Avatar({ user }) {
     if (!user) {
         return <div className="cs-avatar">?</div>;
     }
-    if (user.image) {
+    const image = resolveImage(user.image);
+    if (image) {
         return (
             <div className="cs-avatar">
-                <img src={user.image} alt={user.username} />
+                <img src={image} alt={user.username || "user"} />
             </div>
         );
     }
@@ -34,6 +41,26 @@ function Avatar({ user }) {
             {user.username?.charAt(0) ?? "?"}
         </div>
     );
+}
+
+function mergeCommentUser(comment, fallbackUser) {
+    const user = comment.user ?? null;
+    const shouldUseFallback =
+        fallbackUser && (!user || (comment.userId != null && String(comment.userId) === String(fallbackUser.id)));
+
+    if (!shouldUseFallback) {
+        return comment;
+    }
+
+    return {
+        ...comment,
+        user: {
+            id: user?.id ?? fallbackUser.id ?? null,
+            username: user?.username ?? fallbackUser.username ?? null,
+            image: user?.image ?? fallbackUser.image ?? null,
+        },
+        userId: comment.userId ?? user?.id ?? fallbackUser.id ?? null,
+    };
 }
 
 function CommentItem({ comment, currentUserId, isAdmin, onUpdate, onDelete }) {
@@ -164,7 +191,12 @@ export default function CommentsSection({ modelId }) {
         }
         load();
         return () => { cancelled = true; };
-    }, [modelId]);
+    }, [modelId, user]);
+
+    const displayComments = useMemo(
+        () => comments.map((comment) => mergeCommentUser(comment, user)),
+        [comments, user]
+    );
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -206,7 +238,7 @@ export default function CommentsSection({ modelId }) {
                 <p className="cs-empty">No comments yet.</p>
             ) : (
                 <div className="cs-list">
-                    {comments.map((c) => (
+                    {displayComments.map((c) => (
                         <CommentItem
                             key={c.id}
                             comment={c}
