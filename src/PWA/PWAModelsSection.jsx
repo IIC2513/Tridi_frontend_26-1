@@ -173,7 +173,7 @@ export default function PWAModelsSection({ search = "", showHeader = true, autoS
       {hasFiltered && (
         <div className="pwa-models-grid">
           {filteredModels.map((m) => (
-            <PWAModelCard key={m.id} product={m} online={online} isCreator={isExternalUser ? false : createdIds.has(m.id)} />
+            <PWAModelCard key={m.id} product={m} online={online} isCreator={isExternalUser ? false : createdIds.has(m.id)} isExternalUser={isExternalUser} />
           ))}
         </div>
       )}

@@ -5,7 +5,7 @@ import { storeModel, isModelSaved, deleteModel, getModelEntry } from "./indexedD
 import client from "../api/client";
 import "./PWAModelCard.css";
 
-export default function PWAModelCard({ product, online = true, isCreator = false }) {
+export default function PWAModelCard({ product, online = true, isCreator = false, isExternalUser = false }) {
   const [current, setCurrent] = useState(product);
   const { id, name, artist, modelUrl, image } = current;
   const [status, setStatus] = useState("idle");
@@ -118,28 +118,30 @@ export default function PWAModelCard({ product, online = true, isCreator = false
             Edit
           </button>
         )}
-        {glbFile ? (
-          <>
-            <button
-              className={`pwaDlBtn ${status === "saved" ? "saved" : ""}`}
-              onClick={handleDownload}
-              disabled={status === "downloading"}
-            >
-              {buttonLabel}
-            </button>
-            {status === "saved" && (
-              <button className="pwaExportBtn" onClick={handleExport} title="Export to computer">
-                Export
+        {!isExternalUser && (
+          glbFile ? (
+            <>
+              <button
+                className={`pwaDlBtn ${status === "saved" ? "saved" : ""}`}
+                onClick={handleDownload}
+                disabled={status === "downloading"}
+              >
+                {buttonLabel}
               </button>
-            )}
-            {status === "saved" && (
-              <button className="pwaDeleteBtn" onClick={handleDelete} title="Remove from local storage">
-                ✕
-              </button>
-            )}
-          </>
-        ) : (
-          <span className="pwaNoGlb">No .glb available</span>
+              {status === "saved" && (
+                <button className="pwaExportBtn" onClick={handleExport} title="Export to computer">
+                  Export
+                </button>
+              )}
+              {status === "saved" && (
+                <button className="pwaDeleteBtn" onClick={handleDelete} title="Remove from local storage">
+                  ✕
+                </button>
+              )}
+            </>
+          ) : (
+            <span className="pwaNoGlb">No .glb available</span>
+          )
         )}
       </div>
 
