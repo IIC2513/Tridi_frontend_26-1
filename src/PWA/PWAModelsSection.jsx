@@ -5,7 +5,7 @@ import { getAllSavedProducts } from "./indexedDB";
 import PWAModelCard from "./PWAModelCard";
 import "./PWAHome.css";
 
-export default function PWAModelsSection({ search = "", showHeader = true, autoSync = false }) {
+export default function PWAModelsSection({ search = "", showHeader = true, autoSync = false, userId = null }) {
   const { isAuthenticated, user, loading: authLoading } = useAuth();
   const [models, setModels] = useState([]);
   const [createdIds, setCreatedIds] = useState(new Set());
@@ -13,6 +13,8 @@ export default function PWAModelsSection({ search = "", showHeader = true, autoS
   const [online, setOnline] = useState(navigator.onLine);
   const [initialized, setInitialized] = useState(false);
   const didAutoSync = useRef(false);
+
+  const isExternalUser = userId !== null;
 
   useEffect(() => {
     const goOnline = () => setOnline(true);
@@ -24,6 +26,22 @@ export default function PWAModelsSection({ search = "", showHeader = true, autoS
       window.removeEventListener("offline", goOffline);
     };
   }, []);
+
+  const fetchExternalUserModels = useCallback(async () => {
+    if (!userId || !navigator.onLine) return;
+    setSyncing(true);
+    try {
+      const created = await getCreatedModels(userId);
+      const cIds = new Set(created.map((m) => m.id));
+      setCreatedIds(cIds);
+      setModels(created);
+    } catch (err) {
+      console.error("PWA: Failed to fetch external user models", err);
+    } finally {
+      setSyncing(false);
+      setInitialized(true);
+    }
+  }, [userId]);
 
   const syncFromAPI = useCallback(async () => {
     if (!isAuthenticated || !user?.id || !navigator.onLine) return;
@@ -52,6 +70,14 @@ export default function PWAModelsSection({ search = "", showHeader = true, autoS
   }, [isAuthenticated, user?.id]);
 
   useEffect(() => {
+    if (isExternalUser) {
+      setModels([]);
+      setCreatedIds(new Set());
+      setInitialized(false);
+      didAutoSync.current = false;
+      fetchExternalUserModels();
+      return;
+    }
     if (!isAuthenticated) {
       setModels([]);
       setCreatedIds(new Set());
@@ -69,7 +95,7 @@ export default function PWAModelsSection({ search = "", showHeader = true, autoS
         syncFromAPI();
       }
     });
-  }, [isAuthenticated, syncFromAPI, autoSync]);
+  }, [isAuthenticated, syncFromAPI, autoSync, isExternalUser, fetchExternalUserModels]);
 
   const query = search.trim().toLowerCase();
   const filteredModels = useMemo(() => {
@@ -82,22 +108,26 @@ export default function PWAModelsSection({ search = "", showHeader = true, autoS
   const hasModels = models.length > 0;
   const hasFiltered = filteredModels.length > 0;
 
-  if (authLoading || !initialized) {
+  if (authLoading && !isExternalUser) {
     return <p className="pwa-loading">Loading…</p>;
   }
 
-  if (!isAuthenticated) return null;
+  if (!isExternalUser && !initialized) {
+    return <p className="pwa-loading">Loading…</p>;
+  }
+
+  if (!isExternalUser && !isAuthenticated) return null;
 
   return (
     <section className="pwa-section">
-      {!online && (
+      {!isExternalUser && !online && (
         <div className="pwa-offline-banner">
           <span className="pwa-offline-icon">⚡</span>
           <p className="pwa-offline-text">You are offline. Showing saved models.</p>
         </div>
       )}
 
-      {showHeader && (
+      {showHeader && !isExternalUser && (
         <div className="pwa-header">
           <h1 className="pwa-title">Your Models</h1>
           {online && !autoSync && (
@@ -108,7 +138,7 @@ export default function PWAModelsSection({ search = "", showHeader = true, autoS
         </div>
       )}
 
-      {!showHeader && online && !autoSync && (
+      {!showHeader && !isExternalUser && online && !autoSync && (
         <div className="pwa-syncBar">
           <button className="pwa-syncBtn" onClick={syncFromAPI} disabled={syncing}>
             {syncing ? "Syncing…" : "Sync models"}
@@ -116,17 +146,25 @@ export default function PWAModelsSection({ search = "", showHeader = true, autoS
         </div>
       )}
 
-      {syncing && !hasFiltered && (
+      {syncing && !hasFiltered && !isExternalUser && (
         <p className="pwa-loading">Loading your models…</p>
       )}
 
-      {!syncing && !hasFiltered && online && (
+      {syncing && !hasFiltered && isExternalUser && (
+        <p className="pwa-loading">Loading models…</p>
+      )}
+
+      {!syncing && !hasFiltered && online && !isExternalUser && (
         <p className="pwa-empty">
           {hasModels ? "No models match your search." : "No models yet."}
         </p>
       )}
 
-      {!syncing && !hasFiltered && !online && (
+      {!syncing && !hasFiltered && online && isExternalUser && (
+        <p className="pwa-empty">This artist has no models yet.</p>
+      )}
+
+      {!syncing && !hasFiltered && !online && !isExternalUser && (
         <p className="pwa-empty">
           {hasModels ? "No saved models match your search." : "No models saved offline."}
         </p>
@@ -135,7 +173,7 @@ export default function PWAModelsSection({ search = "", showHeader = true, autoS
       {hasFiltered && (
         <div className="pwa-models-grid">
           {filteredModels.map((m) => (
-            <PWAModelCard key={m.id} product={m} online={online} isCreator={createdIds.has(m.id)} />
+            <PWAModelCard key={m.id} product={m} online={online} isCreator={isExternalUser ? false : createdIds.has(m.id)} />
           ))}
         </div>
       )}

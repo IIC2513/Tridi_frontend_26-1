@@ -191,11 +191,13 @@ export default function Profile() {
                             });
                         }}
                     />
-                    {equalProfile() && (
-                        <div className="profilePwaSection">
+                    <div className="profilePwaSection">
+                        {equalProfile() ? (
                             <PWAModelsSection showHeader={false} autoSync={true} />
-                        </div>
-                    )}
+                        ) : (
+                            <PWAModelsSection showHeader={false} userId={profile.id} />
+                        )}
+                    </div>
                 </main>
             )}
             {status && (
