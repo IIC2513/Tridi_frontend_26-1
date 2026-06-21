@@ -8,6 +8,9 @@ Tridi es un ecommerce de modelos 3D dirigido a amantes de esculturas digitales y
 ## Sobre el deploy
 El *Front* se encuentra deployado en `tridi.jessica.cl` hosteado por *Cloudflare*. Usamos este proveedor ya que allí está la DNS del dominio, y ya lo habiamos utilizado antes. Además, deseamos hostear así la *base de datos*, ya sea **local**, o también **Cloudflare**, así evitando que los datos se borren cada vez que se hace *deploy*, o tener que esperar a que *Render* cargue.soytonto
 
+## PWA
+Hay una PWA en `tridi.jessica.cl/pwa`, esta es instalable desde la fronpage y desde su página correspondiente, una vez instalada sirve para gestionar los modelos de forma local, es decir, descargarlos y utilizarlos localmente, esta misma feature esta en el perfil de usuario. Se necsita logearse para usar la PWA, ya que así obtendrá los modelos de usuario, en la primera instalación los lodeará de forma automatica, luego hay que darle a un botón, siempre se debe presionar download ya que solo de esta forma lo guardará en una indexedb de forma local.
+
 ## Documento de diseño
 Aquí se encuentran las fotos del **Mockup** y del **Documento de Diseño** (al igual que el archivo *figma*). 
 
@@ -105,3 +108,6 @@ usa el backend online.
 
 ## IndexedDB
 Se agregó IndexedDB para guardar los modelos 3D, se guardan los archivos localmente al visitar la página más de una vez.
+
+## Uso de IA
+Tanto en el front como el back se uso IA para generar código y documentación.
