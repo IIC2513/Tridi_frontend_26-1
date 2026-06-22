@@ -1,8 +1,14 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
 import client from "../api/client";
 import { useAuth } from "./useAuth";
 const PurchaseContext = createContext();
 function toPurchase(p) {
+  const items = (p.PurchaseItems ?? []).map((item) => ({
+    id: item.id,
+    name: item.ModelTridi?.name,
+    price: Number(item.unitPrice),
+    modelId: item.ModelTridi?.id,
+  }));
   return {
     id: p.id,
     total: Number(p.total),
@@ -10,33 +16,34 @@ function toPurchase(p) {
     date: p.date ?? p.createdAt,
     createdAt: p.createdAt,
     updatedAt: p.updatedAt,
-    items: (p.PurchaseItems ?? []).map((item) => ({
-      id: item.id,
-      name: item.ModelTridi?.name,
-      price: Number(item.unitPrice),
-    })),
+    items,
+    PurchaseItems: items, // keep for backward compatibility with PurchaseView fallback
   };
 }
 export function PurchaseProvider({ children }) {
   const { isAuthenticated } = useAuth();
   const [purchases, setPurchases] = useState([]);
   const [loading, setLoading] = useState(false);
-  async function refreshPurchases() {
+  const [error, setError] = useState(null);
+  const refreshPurchases = useCallback(async () => {
     if (!isAuthenticated) {
       setPurchases([]);
+      setError(null);
       return;
     }
     try {
       setLoading(true);
+      setError(null);
       const { data } = await client.get("/purchases");
       console.log("RAW /purchases ->", JSON.stringify(data, null, 2));
       setPurchases(data.map(toPurchase));
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.error || err.message || "Failed to load purchases");
     } finally {
       setLoading(false);
     }
-  }
+  }, [isAuthenticated]);
   async function createPurchase() {
     const { data } = await client.post("/purchases");
     await refreshPurchases();
@@ -62,6 +69,7 @@ export function PurchaseProvider({ children }) {
       value={{
         purchases,
         loading,
+        error,
         refreshPurchases,
         createPurchase,
         getPurchase,
