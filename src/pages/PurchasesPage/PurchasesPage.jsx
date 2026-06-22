@@ -10,17 +10,15 @@ import { useStatus } from "../../context/StatusContext";
 
 export default function PurchasesPage() {
     const { isAuthenticated } = useAuth();
-    const { purchases, loading, error, refreshPurchases, updateStatus } = usePurchases();
+    const { purchases, loading, updateStatus } = usePurchases();
     const { showStatus } = useStatus();
     const navigate = useNavigate();
 
     useEffect(() => {
         if (!isAuthenticated) {
             navigate("/catalogue");
-            return;
         }
-        refreshPurchases();
-    }, [isAuthenticated, navigate, refreshPurchases]);
+    }, [isAuthenticated, navigate]);
 
     const pendingPurchases = purchases.filter((purchase) => purchase.status === "pending");
 
@@ -43,25 +41,6 @@ export default function PurchasesPage() {
             <>
                 <Navbar />
                 <p className="userEmpty">Loading Purchases...</p>
-                <Footer />
-            </>
-        );
-    }
-
-    if (error) {
-        return (
-            <>
-                <Navbar />
-                <main className="profilePage">
-                    <h1 className="profileTitle">Pending Purchases</h1>
-                    <hr className="hrProfile" />
-                    <div className="profileInfo">
-                        <p className="errorMessage">Failed to load purchases: {error}</p>
-                        <button onClick={refreshPurchases} className="BtnUpload" style={{ marginTop: "1rem" }}>
-                            Retry
-                        </button>
-                    </div>
-                </main>
                 <Footer />
             </>
         );
